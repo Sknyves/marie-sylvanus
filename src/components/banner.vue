@@ -8,27 +8,6 @@ const frameImage = '/frame.png'
 
 <template>
     <div class="flex flex-col lg:flex-row p-4 h-auto min-h-screen items-center justify-center gap-8 md:gap-16 mt-16 md:mt-24">
-        <!-- Première carte - Citation -->
-        <div class="relative w-full lg:w-1/2 h-[120vh] lg:h-[120vh] flex flex-col items-center justify-center border border-neutral-300 rounded-lg shadow-lg ">
-            <p class="text-lg md:text-xl text-neutral-700 italic text-center p-6 lg:p-8">
-                « La programmation n'est pas une question d'outils, de langages ou de frameworks. Il s'agit de résoudre des problèmes. »
-            </p>
-            
-            <div class="absolute bottom-4 left-4 w-full flex items-center justify-start">
-                <img 
-                    :src="frameImage" 
-                    alt="code QR" 
-                    class="w-16 h-16 md:w-20 md:h-20 object-cover"
-                >
-                <Github class="w-5 h-5 md:w-6 md:h-6 text-neutral-800 border border-neutral-800 rounded-full p-1 ml-4" />
-            </div>
-            
-            <p class="absolute bottom-4 right-4 text-xs md:text-sm text-neutral-600 text-right">
-                Copyright © 2025 MELDEV. <br>Tous droits réservés.
-            </p>
-        </div>
-
-        <!-- Deuxième carte - Portfolio -->
         <div class="relative w-full lg:w-1/2 h-[120vh] lg:h-[120vh] flex flex-col items-center justify-center border border-neutral-300 rounded-lg shadow-lg ">
             <p class="text-2xl md:text-3xl lg:text-4xl font-semibold text-neutral-800 text-center mb-4 md:mb-8 px-4">
                 MON PORTFOLIO
@@ -52,6 +31,25 @@ const frameImage = '/frame.png'
                     <p class="text-xs md:text-sm">2025</p>
                 </div>
             </div>
+        </div>
+        
+        <div class="relative w-full lg:w-1/2 h-[120vh] lg:h-[120vh] flex flex-col items-center justify-center border border-neutral-300 rounded-lg shadow-lg ">
+            <p class="text-lg md:text-xl text-neutral-700 italic text-center p-6 lg:p-8">
+                « La programmation n'est pas une question d'outils, de langages ou de frameworks. Il s'agit de résoudre des problèmes. »
+            </p>
+            
+            <div class="absolute bottom-4 left-4 w-full flex items-center justify-start">
+                <img 
+                    :src="frameImage" 
+                    alt="code QR" 
+                    class="w-16 h-16 md:w-20 md:h-20 object-cover"
+                >
+                <Github class="w-5 h-5 md:w-6 md:h-6 text-neutral-800 border border-neutral-800 rounded-full p-1 ml-4" />
+            </div>
+            
+            <p class="absolute bottom-4 right-4 text-xs md:text-sm text-neutral-600 text-right">
+                Copyright © 2025 MELDEV. <br>Tous droits réservés.
+            </p>
         </div>
     </div>
 </template>
