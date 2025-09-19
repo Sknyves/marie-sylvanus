@@ -4,7 +4,7 @@ import Banner from '@/components/banner.vue';
 
 </script>
 <template>
-    <div>
+    <div class="space-y-[100px]">
         <Banner />
         <About />
     </div>
