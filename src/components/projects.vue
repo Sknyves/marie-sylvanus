@@ -29,15 +29,6 @@ const projects = [
   },
   {
     id: 4,
-    title: "Köta",
-    description: "Site de traitement de sujets avec IA faisant office d'exposés",
-    image: "/projects/1.png",
-    technologies: ["Vue.js", "Tailwind CSS"],
-    link: "https://k-ta.vercel.app/",
-    category: "Web"
-  },
-  {
-    id: 5,
     title: "Waari Festival",
     description: "Site officiel du Waari Festival 2025",
     image: "/projects/3.png",
@@ -46,7 +37,7 @@ const projects = [
     category: "Web"
   },
   {
-    id: 6,
+    id: 5,
     title: "Outil de Reconnaissance Visuelle",
     description: "Application desktop avec CNN personnalisé pour la classification d'images dans le domaine industriel.",
     image: "/projects/6.png",
@@ -55,7 +46,7 @@ const projects = [
     category: "Desktop"
   },
   {
-    id: 7,
+    id: 6,
     title: "Neon Mind",
     description: "Blog de développement personnel et professionnel",
     image: "/projects/4.png",
@@ -131,19 +122,6 @@ const projects = [
             </a>
           </div>
         </div>
-      </div>
-
-      <!-- Bouton voir plus -->
-      <div class="text-center mt-16">
-        <a 
-          href="#contact" 
-          class="inline-flex items-center px-8 py-3 bg-neutral-800 text-white rounded-lg hover:bg-neutral-700 transition-colors duration-300 font-medium"
-        >
-          Voir tous les projets
-          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </a>
       </div>
     </div>
   </section>

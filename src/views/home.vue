@@ -1,6 +1,7 @@
 <script setup>
 import About from '@/components/about.vue';
 import Banner from '@/components/banner.vue';
+import Contact from '@/components/contact.vue';
 import Projects from '@/components/projects.vue';
 
 </script>
@@ -9,5 +10,6 @@ import Projects from '@/components/projects.vue';
         <Banner />
         <About />
         <Projects />
+        <Contact />
     </div>
 </template>
