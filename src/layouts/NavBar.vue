@@ -1,93 +1,207 @@
 <script setup>
-import { Braces, HomeIcon, InfoIcon, Phone, Menu, X } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { Braces, HomeIcon, InfoIcon, Phone, Menu, X, Sparkles } from 'lucide-vue-next';
+import { ref, onMounted, watch } from 'vue';
+import gsap from 'gsap';
 
 const isMenuOpen = ref(false);
+const isScrolled = ref(false);
+
+// Observer le défilement pour changer le style de la navbar
+onMounted(() => {
+  window.addEventListener('scroll', () => {
+    isScrolled.value = window.scrollY > 10;
+  });
+
+  // Animation d'entrée de la navbar
+  const tl = gsap.timeline();
+  
+  tl.fromTo(".logo-letter", 
+    { y: -20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: "back.out(1.7)" }
+  )
+  .fromTo(".nav-name", 
+    { y: -15, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.5 },
+    "-=0.3"
+  )
+  .fromTo(".nav-title", 
+    { y: -10, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 },
+    "-=0.2"
+  )
+  .fromTo(".nav-item", 
+    { y: -10, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 },
+    "-=0.3"
+  );
+
+  // Animation des séparateurs
+  gsap.fromTo(".nav-separator",
+    { scaleX: 0, opacity: 0 },
+    { scaleX: 1, opacity: 1, duration: 0.8, delay: 0.5, ease: "power2.out" }
+  );
+});
+
+// Observer l'état du menu mobile pour l'animation
+watch(isMenuOpen, (newVal) => {
+  if (newVal) {
+    // Ouvrir le menu mobile avec animation
+    gsap.to(".mobile-menu", {
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+      ease: "power2.out"
+    });
+    
+    gsap.fromTo(".mobile-nav-item",
+      { x: -20, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.4, stagger: 0.1 }
+    );
+  } else {
+    // Fermer le menu mobile avec animation
+    gsap.to(".mobile-menu", {
+      y: -10,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in"
+    });
+  }
+});
+
+// Animation des liens au survol
+const animateNavItem = (element, isHover) => {
+  if (isHover) {
+    gsap.to(element, {
+      y: -3,
+      scale: 1.05,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+    
+    gsap.to(element.querySelector('svg'), {
+      rotation: 10,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  } else {
+    gsap.to(element, {
+      y: 0,
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+    
+    gsap.to(element.querySelector('svg'), {
+      rotation: 0,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  }
+};
 </script>
 
 <template>
-  <nav class="w-full py-4 relative bg-[#E9E1D1] shadow-sm">
+  <nav 
+    class="w-full py-4 fixed top-0 z-50 transition-all duration-300"
+    :class="isScrolled ? 'bg-white/90 backdrop-blur-md shadow-lg' : 'bg-[#E9E1D1] shadow-sm'"
+  >
     <div class="flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Logo PORTFOLIO avec animation -->
       <div class="flex font-bold text-lg sm:text-xl text-neutral-800 tracking-widest">
         <span 
           v-for="(letter, index) in 'PORTFOLIO'" 
           :key="index" 
-          class="inline-block animate-bounce"
-          :style="`animation-delay: ${index * 0.1}s`"
+          class="logo-letter inline-block"
         >
           {{ letter }}
         </span>
       </div>
 
-      <div>|</div>
+      <div class="nav-separator h-6 w-px bg-neutral-300 mx-2 md:mx-4"></div>
       
       <!-- Nom et titre - visible à partir de md -->
-      <div class="text-center flex-shrink-0 hidden md:block mx-4">
-        <p class="font-semibold text-base lg:text-lg text-neutral-800 tracking-wide m-0">MARIE SYLVANUS KINKPON</p>
-        <p class="text-xs lg:text-sm text-gray-500 italic mt-1 m-0">Développeur full-stack</p>
-        <p class="text-xs lg:text-sm text-gray-500 italic mt-1 m-0">...de l'idée au résultat</p>
+      <div class="text-center flex-shrink-0 hidden md:block mx-2">
+        <p class="nav-name font-semibold text-base lg:text-lg text-neutral-800 tracking-wide m-0">MARIE SYLVANUS KINKPON</p>
+        <p class="nav-title text-xs lg:text-sm text-gray-500 italic mt-1 m-0">Développeur full-stack</p>
+        <p class="nav-title text-xs lg:text-sm text-gray-500 italic mt-1 m-0">...de l'idée au résultat</p>
       </div>
 
-      <div>|</div>
+      <div class="nav-separator h-6 w-px bg-neutral-300 mx-2 md:mx-4"></div>
       
       <!-- Menu de navigation desktop -->
       <div class="hidden md:flex gap-4 lg:gap-6">
         <router-link 
           to="/" 
-          class="flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 hover:-translate-y-0.5" 
+          class="nav-item flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 group relative"
           title="Accueil"
+          @mouseenter="e => animateNavItem(e.currentTarget, true)"
+          @mouseleave="e => animateNavItem(e.currentTarget, false)"
         >
-          <HomeIcon class="w-5 h-5 lg:w-6 lg:h-6 mb-1" />
+          <HomeIcon class="w-5 h-5 lg:w-6 lg:h-6 mb-1 transition-transform" />
           <span class="text-xs font-medium">Accueil</span>
+          <Sparkles class="absolute -top-1 -right-1 w-3 h-3 text-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
         </router-link>
         <router-link 
           to="/about" 
-          class="flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 hover:-translate-y-0.5" 
+          class="nav-item flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 group relative"
           title="À propos"
+          @mouseenter="e => animateNavItem(e.currentTarget, true)"
+          @mouseleave="e => animateNavItem(e.currentTarget, false)"
         >
-          <InfoIcon class="w-5 h-5 lg:w-6 lg:h-6 mb-1" />
+          <InfoIcon class="w-5 h-5 lg:w-6 lg:h-6 mb-1 transition-transform" />
           <span class="text-xs font-medium">À propos</span>
+          <Sparkles class="absolute -top-1 -right-1 w-3 h-3 text-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
         </router-link>
         <router-link 
           to="/projets" 
-          class="flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 hover:-translate-y-0.5" 
+          class="nav-item flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 group relative"
           title="Projets"
+          @mouseenter="e => animateNavItem(e.currentTarget, true)"
+          @mouseleave="e => animateNavItem(e.currentTarget, false)"
         >
-          <Braces class="w-5 h-5 lg:w-6 lg:h-6 mb-1" />
+          <Braces class="w-5 h-5 lg:w-6 lg:h-6 mb-1 transition-transform" />
           <span class="text-xs font-medium">Projets</span>
+          <Sparkles class="absolute -top-1 -right-1 w-3 h-3 text-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
         </router-link>
         <router-link 
           to="/contact" 
-          class="flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 hover:-translate-y-0.5" 
+          class="nav-item flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 group relative"
           title="Contact"
+          @mouseenter="e => animateNavItem(e.currentTarget, true)"
+          @mouseleave="e => animateNavItem(e.currentTarget, false)"
         >
-          <Phone class="w-5 h-5 lg:w-6 lg:h-6 mb-1" />
+          <Phone class="w-5 h-5 lg:w-6 lg:h-6 mb-1 transition-transform" />
           <span class="text-xs font-medium">Contact</span>
+          <Sparkles class="absolute -top-1 -right-1 w-3 h-3 text-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
         </router-link>
       </div>
 
       <!-- Bouton menu mobile -->
       <button 
         @click="isMenuOpen = !isMenuOpen"
-        class="md:hidden p-2 rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors"
+        class="md:hidden p-2 rounded-lg text-neutral-700 hover:bg-neutral-100 transition-colors relative"
         aria-label="Menu"
+        :class="isMenuOpen ? 'bg-neutral-100' : ''"
       >
-        <Menu v-if="!isMenuOpen" class="w-6 h-6" />
-        <X v-else class="w-6 h-6" />
+        <Menu v-if="!isMenuOpen" class="w-6 h-6 transition-transform" :class="isMenuOpen ? 'rotate-90' : ''" />
+        <X v-else class="w-6 h-6 transition-transform" :class="isMenuOpen ? 'rotate-90' : ''" />
+        
+        <!-- Indicateur animé -->
+        <span v-if="isMenuOpen" class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-ping"></span>
+        <span v-if="isMenuOpen" class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"></span>
       </button>
     </div>
 
     <!-- Menu mobile -->
     <div 
       v-if="isMenuOpen"
-      class="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50 border-t border-neutral-200"
+      class="mobile-menu md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg z-50 border-t border-neutral-200 transform -translate-y-2 opacity-0"
     >
       <div class="px-4 py-4 space-y-2">
         <router-link 
           to="/" 
           @click="isMenuOpen = false"
-          class="flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
+          class="mobile-nav-item flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
           title="Accueil"
         >
           <HomeIcon class="w-5 h-5 mr-3" />
@@ -96,7 +210,7 @@ const isMenuOpen = ref(false);
         <router-link 
           to="/about" 
           @click="isMenuOpen = false"
-          class="flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
+          class="mobile-nav-item flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
           title="À propos"
         >
           <InfoIcon class="w-5 h-5 mr-3" />
@@ -105,7 +219,7 @@ const isMenuOpen = ref(false);
         <router-link 
           to="/projets" 
           @click="isMenuOpen = false"
-          class="flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
+          class="mobile-nav-item flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
           title="Projets"
         >
           <Braces class="w-5 h-5 mr-3" />
@@ -114,7 +228,7 @@ const isMenuOpen = ref(false);
         <router-link 
           to="/contact" 
           @click="isMenuOpen = false"
-          class="flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
+          class="mobile-nav-item flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
           title="Contact"
         >
           <Phone class="w-5 h-5 mr-3" />
@@ -123,34 +237,46 @@ const isMenuOpen = ref(false);
       </div>
     </div>
   </nav>
+
+  <!-- Espace pour la navbar fixe -->
+  <div class="h-20"></div>
 </template>
 
 <style scoped>
-.animate-bounce {
-  animation: bounce 1s ease infinite alternate;
+.logo-letter {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 
-@keyframes bounce {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-3px); }
-}
-
-/* Animation pour le menu mobile */
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.3s ease;
-}
-
-.slide-enter-from,
-.slide-leave-to {
+.nav-name, .nav-title, .nav-item {
   opacity: 0;
   transform: translateY(-10px);
 }
 
-/* Amélioration de l'accessibilité */
+.nav-separator {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.mobile-nav-item {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+/* Animation pour l'indicateur de page active */
 .router-link-active {
   background-color: #374151;
-  color: #E9E1D1;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.router-link-active:hover {
+  background-color: #4B5563;
+}
+
+/* Animation pour le bouton menu mobile */
+button {
+  transition: all 0.3s ease;
 }
 
 /* Responsive pour très petits écrans */
@@ -165,14 +291,19 @@ const isMenuOpen = ref(false);
   }
 }
 
-@media (max-width: 640px) {
-  .animate-bounce {
-    animation: bounce 1s ease infinite alternate;
-  }
-  
-  @keyframes bounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-2px); }
-  }
+/* Effet de transition douce pour la navbar */
+nav {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Amélioration de l'accessibilité */
+button:focus {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 2px;
+}
+
+/* Animation pour les séparateurs */
+.nav-separator {
+  transform-origin: center center;
 }
 </style>
