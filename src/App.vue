@@ -94,8 +94,6 @@ button:hover {
   button {
     bottom: 4rem;
     right: 1rem;
-    width: 10rem;
-    height: 10rem;
   }
 }
 </style>

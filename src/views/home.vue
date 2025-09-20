@@ -245,7 +245,7 @@ const getSectionName = (sectionId) => {
         </div>
       </div>
 
-      <!-- Bouton de retour en haut -->
+      <!-- Bouton de retour en haut 
       <button 
         v-if="showScrollTop" 
         @click="scrollToTop"
@@ -258,7 +258,7 @@ const getSectionName = (sectionId) => {
         <span class="absolute right-full mr-2 top-1/2 transform -translate-y-1/2 bg-neutral-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
           Haut de page
         </span>
-      </button>
+      </button>-->
 
       <!-- Indicateur de progression de défilement -->
       <div class="fixed top-0 left-0 w-full h-1 bg-neutral-200 z-50">
