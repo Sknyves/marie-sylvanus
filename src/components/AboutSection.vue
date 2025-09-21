@@ -239,13 +239,13 @@ onMounted(() => {
               performantes et intuitives.
             </p>
             <div class="flex justify-center lg:justify-start space-x-4">
-              <a 
-                href="#contact" 
+              <router-link 
+                to="/contact" 
                 class="action-button px-6 py-3 bg-neutral-800 text-white rounded-lg transition-all duration-300 shadow-md flex items-center"
               >
                 <MessageCircle class="w-4 h-4 mr-2" />
                 Me contacter
-              </a>
+              </router-link>
               <a 
                 href="/cv-meldev.pdf" 
                 class="action-button px-6 py-3 border border-neutral-800 text-neutral-800 rounded-lg hover:bg-neutral-800 hover:text-white transition-all duration-300 flex items-center"
