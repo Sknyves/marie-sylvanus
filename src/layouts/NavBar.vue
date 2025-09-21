@@ -1,6 +1,6 @@
 <script setup>
 import { Braces, HomeIcon, InfoIcon, Phone, Menu, X, Sparkles } from 'lucide-vue-next';
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, nextTick } from 'vue';
 import gsap from 'gsap';
 
 const isMenuOpen = ref(false);
@@ -43,28 +43,45 @@ onMounted(() => {
 });
 
 // Observer l'état du menu mobile pour l'animation
-watch(isMenuOpen, (newVal) => {
+watch(isMenuOpen, async (newVal) => {
+  // Attendre que le DOM soit mis à jour
+  await nextTick();
+  
   if (newVal) {
-    // Ouvrir le menu mobile avec animation
-    gsap.to(".mobile-menu", {
-      y: 0,
-      opacity: 1,
-      duration: 0.4,
-      ease: "power2.out"
-    });
+    // Vérifier que l'élément existe avant d'animer
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
     
-    gsap.fromTo(".mobile-nav-item",
-      { x: -20, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.4, stagger: 0.1 }
-    );
+    if (mobileMenu) {
+      // Ouvrir le menu mobile avec animation
+      gsap.to(mobileMenu, {
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+        ease: "power2.out"
+      });
+    }
+    
+    if (mobileNavItems.length > 0) {
+      // Animer chaque élément de navigation mobile
+      gsap.fromTo(mobileNavItems,
+        { x: -20, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.4, stagger: 0.1 }
+      );
+    }
   } else {
-    // Fermer le menu mobile avec animation
-    gsap.to(".mobile-menu", {
-      y: -10,
-      opacity: 0,
-      duration: 0.3,
-      ease: "power2.in"
-    });
+    // Vérifier que l'élément existe avant d'animer
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (mobileMenu) {
+      // Fermer le menu mobile avec animation
+      gsap.to(mobileMenu, {
+        y: -10,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in"
+      });
+    }
   }
 });
 
@@ -78,11 +95,14 @@ const animateNavItem = (element, isHover) => {
       ease: "power2.out"
     });
     
-    gsap.to(element.querySelector('svg'), {
-      rotation: 10,
-      duration: 0.3,
-      ease: "power2.out"
-    });
+    const svg = element.querySelector('svg');
+    if (svg) {
+      gsap.to(svg, {
+        rotation: 10,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
   } else {
     gsap.to(element, {
       y: 0,
@@ -91,11 +111,14 @@ const animateNavItem = (element, isHover) => {
       ease: "power2.out"
     });
     
-    gsap.to(element.querySelector('svg'), {
-      rotation: 0,
-      duration: 0.3,
-      ease: "power2.out"
-    });
+    const svg = element.querySelector('svg');
+    if (svg) {
+      gsap.to(svg, {
+        rotation: 0,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    }
   }
 };
 </script>
