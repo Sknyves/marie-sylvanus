@@ -19,6 +19,26 @@ const projects = [
     category: "Web"
   },
   {
+    id: 7,
+    title: "Coffee App",
+    description: "Site web pour une application de café.",
+    image: "/projects/13.png",
+    technologies: ["Vue.js", "TailwindCSS"],
+    github: "https://github.com/Sknyves/coffee",
+    demo: "https://coffee-xi-two.vercel.app/",
+    category: "Web"
+  },
+  {
+    id: 8,
+    title: "LBM-Drive",
+    description: "Site web de location de voiture pour la société LBM-Drive.",
+    image: "/projects/14.png",
+    technologies: ["Vue.js", "TailwindCSS", "GSAP", "JavaScript"],
+    github: "https://github.com/Sknyves/lbm-drive",
+    demo: "https://lbm-drive.vercel.app/",
+    category: "Web"
+  },
+  {
     id: 2,
     title: "Système de Computer Vision",
     description: "Application de reconnaissance d'images et traitement vidéo en temps réel utilisant TensorFlow et OpenCV avec interface Python.",
