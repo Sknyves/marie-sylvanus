@@ -221,7 +221,7 @@ onMounted(() => {
               <div class="profile-photo w-72 h-72 bg-neutral-800 rounded-full overflow-hidden border-4 border-white">
                 <img 
                   src="/about-photo.png" 
-                  alt="Marie Sylvain KINKPON" 
+                  alt="Marie Sylvanus KINKPON" 
                   class="w-full h-full object-cover transition-transform duration-500"
                 />
               </div>
@@ -232,7 +232,7 @@ onMounted(() => {
           </div>
 
           <div class="text-center lg:text-left">
-            <h2 class="text-2xl font-bold text-neutral-800 mb-4">Marie Sylvain KINKPON</h2>
+            <h2 class="text-2xl font-bold text-neutral-800 mb-4">Marie Sylvanus KINKPON</h2>
             <p class="text-neutral-700 mb-6">
               Développeur full-stack avec une expertise en Vue.js, Python et intelligence artificielle. 
               Je combine créativité technique et rigueur pour concevoir des applications web et mobiles 
