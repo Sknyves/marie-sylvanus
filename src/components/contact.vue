@@ -277,7 +277,7 @@ onMounted(() => {
           <div class="absolute -bottom-10 -left-10 w-24 h-24 rounded-full bg-white opacity-20"></div>
           
           <h3 class="text-2xl font-bold text-neutral-800 mb-6 relative z-10">
-            Envoyez un message via WhatsApp
+            Me contacter via WhatsApp
           </h3>
 
           <form @submit.prevent="submitForm" class="space-y-6 relative z-10">
@@ -371,7 +371,7 @@ onMounted(() => {
           <!-- Coordonnées -->
           <div>
             <h3 class="text-2xl font-bold text-neutral-800 mb-6">
-              Mes coordonnées
+              Coordonnées de Marie Sylvanus KINKPON
             </h3>
             
             <div class="space-y-4">

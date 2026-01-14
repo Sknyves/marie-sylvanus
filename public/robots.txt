@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marie-sylvanus.vercel.app/sitemap.xml

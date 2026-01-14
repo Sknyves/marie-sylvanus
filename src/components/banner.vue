@@ -116,13 +116,13 @@ onMounted(() => {
 <template>
     <div ref="bannerContainer" class="flex flex-col lg:flex-row p-4 h-auto min-h-screen items-center justify-center gap-8 md:gap-16 mt-16 md:mt-24">
         <div class="card-container relative w-full lg:w-1/2 h-[120vh] lg:h-[120vh] flex flex-col items-center justify-center border border-neutral-300 rounded-lg shadow-lg overflow-hidden">
-            <p class="title-text text-2xl md:text-3xl lg:text-4xl font-semibold text-neutral-800 text-center mb-4 md:mb-8 px-4">
-                MON PORTFOLIO
-            </p>
+            <h1 class="title-text text-2xl md:text-3xl lg:text-4xl font-semibold text-neutral-800 text-center mb-4 md:mb-8 px-4">
+                MARIE SYLVANUS KINKPON | PORTFOLIO
+            </h1>
             
             <img 
                 :src="bannerImage" 
-                alt="Bannière principale MELDEV 2025" 
+                alt="Bannière principale Marie Sylvanus KINKPON - Développeur Full-Stack" 
                 class="main-image w-48 md:w-64 lg:w-80 h-auto object-cover brightness-75 mb-16 md:mb-32 transform transition-transform duration-700 hover:scale-105"
                 loading="lazy"
             >
@@ -135,7 +135,7 @@ onMounted(() => {
                         class="w-16 h-16 md:w-20 md:h-20 object-cover"
                     >
                     <p class="font-semibold text-sm md:text-base mt-2">MELDEV</p>
-                    <p class="text-xs md:text-sm">2025</p>
+                    <p class="text-xs md:text-sm">2026</p>
                 </div>
             </div>
         </div>

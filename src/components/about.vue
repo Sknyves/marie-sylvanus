@@ -144,8 +144,8 @@ onMounted(() => {
         <!-- Contenu principal -->
         <div class="w-full md:w-2/3 space-y-6 md:space-y-8 px-4 md:px-12">
           <div class="text-center">
-            <p class="about-title font-bold text-3xl md:text-4xl text-neutral-800">À propos de moi</p>
-            <p class="about-subtitle text-sm md:text-base italic text-gray-600 mt-2">Développeur full-stack passionné</p>
+            <h2 class="about-title font-bold text-3xl md:text-4xl text-neutral-800">À propos de Marie Sylvanus KINKPON</h2>
+            <p class="about-subtitle text-sm md:text-base italic text-gray-600 mt-2">Expert Développeur Full-Stack & Solutions IA</p>
           </div>
           
           <div class="space-y-6">

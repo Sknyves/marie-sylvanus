@@ -205,11 +205,11 @@ onMounted(() => {
       <!-- En-tête -->
       <div class="text-center mb-16">
         <h1 class="section-title text-4xl md:text-5xl font-bold text-neutral-800 mb-6">
-          À propos de <span class="text-white drop-shadow-sm">Moi</span>
+          À propos de <span class="text-white drop-shadow-sm">Marie Sylvanus KINKPON</span>
         </h1>
         <p class="section-description text-lg text-neutral-700 max-w-3xl mx-auto">
           Développeur passionné spécialisé dans les technologies modernes, 
-          je crée des solutions innovantes qui allient performance et élégance.
+          je crée des solutions innovantes en développement Full-Stack et Intelligence Artificielle.
         </p>
       </div>
 
@@ -259,7 +259,7 @@ onMounted(() => {
 
         <!-- Compétences principales -->
         <div>
-          <h3 class="text-2xl font-bold text-neutral-800 mb-8">Expertises Principales</h3>
+          <h2 class="text-2xl font-bold text-neutral-800 mb-8">Expertises Principales</h2>
           
           <div class="space-y-6 mb-8">
             <div v-for="(skill, index) in skills" :key="index" class="skill-item group">
@@ -297,7 +297,7 @@ onMounted(() => {
 
       <!-- Stack Technologique -->
       <div class="mb-20">
-        <h3 class="text-3xl font-bold text-neutral-800 text-center mb-12">Stack Technologique</h3>
+        <h2 class="text-3xl font-bold text-neutral-800 text-center mb-12">Ma Stack Technologique</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div v-for="(items, category, index) in technologies" :key="index" class="tech-category text-center">
@@ -319,9 +319,9 @@ onMounted(() => {
 
       <!-- Philosophie -->
       <div class="philosophy-section bg-white bg-opacity-90 rounded-3xl p-8 md:p-12 shadow-lg">
-        <h3 class="text-2xl md:text-3xl font-bold text-neutral-800 text-center mb-8">
-          Ma Vision du Développement
-        </h3>
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-800 text-center mb-8">
+          Ma Vision du Développement Web & IA
+        </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="philosophy-item text-center">
             <div class="w-16 h-16 bg-[#E9E1D1] rounded-full flex items-center justify-center mx-auto mb-4">

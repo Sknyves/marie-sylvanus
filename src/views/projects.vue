@@ -294,9 +294,9 @@ const filterProjects = (category) => {
     <div class="container mx-auto px-4 relative z-10">
       <!-- Titre section -->
       <div class="text-center mb-16">
-        <h2 class="section-title text-4xl md:text-5xl font-bold text-neutral-800 mb-4">
-          Mes Réalisations
-        </h2>
+        <h1 class="section-title text-4xl md:text-5xl font-bold text-neutral-800 mb-4">
+          Portfolio de Projets - Marie Sylvanus KINKPON
+        </h1>
         <p class="section-description text-lg text-neutral-700 max-w-2xl mx-auto">
           Découvrez une sélection de projets où j'ai mis en œuvre mes compétences 
           en développement full-stack, IA et technologies modernes.
@@ -336,7 +336,7 @@ const filterProjects = (category) => {
             <div class="relative overflow-hidden aspect-video">
               <img
                 :src="project.image"
-                :alt="project.title"
+                :alt="`Capture d'écran du projet ${project.title} - ${project.category} par Marie Sylvanus KINKPON`"
                 class="project-image w-full h-full object-cover transition-transform duration-500"
               />
               <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
