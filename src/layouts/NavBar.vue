@@ -1,5 +1,5 @@
 <script setup>
-import { Braces, HomeIcon, InfoIcon, Phone, Menu, X, Sparkles } from 'lucide-vue-next';
+import { Braces, HomeIcon, InfoIcon, Phone, Menu, X, Sparkles, Briefcase } from 'lucide-vue-next';
 import { ref, onMounted, watch, nextTick } from 'vue';
 import gsap from 'gsap';
 
@@ -187,6 +187,17 @@ const animateNavItem = (element, isHover) => {
           <Sparkles class="absolute -top-1 -right-1 w-3 h-3 text-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
         </router-link>
         <router-link 
+          to="/services" 
+          class="nav-item flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 group relative"
+          title="Services"
+          @mouseenter="e => animateNavItem(e.currentTarget, true)"
+          @mouseleave="e => animateNavItem(e.currentTarget, false)"
+        >
+          <Briefcase class="w-5 h-5 lg:w-6 lg:h-6 mb-1 transition-transform" />
+          <span class="text-xs font-medium">Services</span>
+          <Sparkles class="absolute -top-1 -right-1 w-3 h-3 text-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+        </router-link>
+        <router-link 
           to="/contact" 
           class="nav-item flex flex-col items-center no-underline text-neutral-700 transition-all duration-300 p-2 rounded-lg hover:text-white hover:bg-neutral-600 group relative"
           title="Contact"
@@ -247,6 +258,15 @@ const animateNavItem = (element, isHover) => {
         >
           <Braces class="w-5 h-5 mr-3" />
           <span class="font-medium">Projets</span>
+        </router-link>
+        <router-link 
+          to="/services" 
+          @click="isMenuOpen = false"
+          class="mobile-nav-item flex items-center no-underline text-neutral-700 transition-all duration-300 p-3 rounded-lg hover:text-white hover:bg-neutral-600"
+          title="Services"
+        >
+          <Briefcase class="w-5 h-5 mr-3" />
+          <span class="font-medium">Services</span>
         </router-link>
         <router-link 
           to="/contact" 

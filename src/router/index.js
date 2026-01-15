@@ -2,6 +2,11 @@ import Contact from '@/components/contact.vue'
 import About from '@/views/about.vue'
 import Home from '@/views/home.vue'
 import Projects from '@/views/projects.vue'
+import Services from '@/views/services.vue'
+import WebDevelopment from '@/views/services/web-development.vue'
+import AISolutions from '@/views/services/ai-solutions.vue'
+import DesktopApps from '@/views/services/desktop-apps.vue'
+import Consulting from '@/views/services/consulting.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -30,6 +35,51 @@ const routes = [
     meta: {
       title: 'Mes Réalisations | Portfolio Marie Sylvanus',
       description: 'Explorez mes projets de développement web, applications desktop et solutions IA. Portfolio incluant des applications Vue.js, systèmes de Computer Vision et APIs Django.'
+    }
+  },
+  {
+    path: '/services',
+    name: 'services',
+    component: Services,
+    meta: {
+      title: 'Services & Tarifs | Marie Sylvanus KINKPON',
+      description: 'Développement web full-stack, solutions IA, applications desktop et consulting. Tarifs adaptés aux startups, PME et grandes entreprises. Devis gratuit.'
+    }
+  },
+  {
+    path: '/services/web-development',
+    name: 'web-development',
+    component: WebDevelopment,
+    meta: {
+      title: 'Développement Web Full-Stack | Marie Sylvanus KINKPON',
+      description: 'Création de sites web, applications SaaS, e-commerce et PWA. Technologies modernes : Vue.js, React, Django, Node.js. Devis gratuit.'
+    }
+  },
+  {
+    path: '/services/ai-solutions',
+    name: 'ai-solutions',
+    component: AISolutions,
+    meta: {
+      title: 'Solutions IA : Chatbots, RAG & Automatisation | Marie Sylvanus',
+      description: 'Chatbots intelligents, systèmes RAG, automatisation IA, Computer Vision et modèles ML personnalisés. Expert en TensorFlow, OpenAI et LangChain.'
+    }
+  },
+  {
+    path: '/services/desktop-apps',
+    name: 'desktop-apps',
+    component: DesktopApps,
+    meta: {
+      title: 'Applications Desktop Multi-plateformes | Marie Sylvanus',
+      description: 'Développement d\'applications desktop pour Windows, Mac et Linux. Qt, Electron, C++, Python. Logiciels de gestion sur mesure.'
+    }
+  },
+  {
+    path: '/services/consulting',
+    name: 'consulting',
+    component: Consulting,
+    meta: {
+      title: 'Consulting & Formation Développement | Marie Sylvanus',
+      description: 'Audit technique, formation Vue.js/Python/IA, code review et accompagnement projet. Expert technique pour vos équipes de développement.'
     }
   },
   {

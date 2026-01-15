@@ -284,6 +284,36 @@ const getSectionName = (sectionId) => {
           <div class="section-divider absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-neutral-300 rounded-full"></div>
         </section>
 
+        <!-- Services CTA Section -->
+        <section class="section-transition parallax-section relative py-20 bg-gradient-to-br from-neutral-800 to-neutral-700">
+          <div class="max-w-4xl mx-auto px-4 text-center text-white">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+              Besoin d'un développeur pour votre projet ?
+            </h2>
+            <p class="text-lg md:text-xl mb-8 opacity-90">
+              Je propose des services de développement web, IA et applications desktop adaptés à votre budget.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <router-link
+                to="/services"
+                class="inline-flex items-center justify-center px-8 py-4 bg-white text-neutral-800 rounded-lg hover:bg-gray-100 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                Découvrir mes services
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </router-link>
+              <router-link
+                to="/contact"
+                class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white rounded-lg hover:bg-white hover:text-neutral-800 transition-all duration-300 font-semibold"
+              >
+                Demander un devis
+              </router-link>
+            </div>
+          </div>
+          <div class="section-divider absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-white/30 rounded-full"></div>
+        </section>
+
         <!-- Contact Section -->
         <section id="contact" class="section-transition parallax-section">
           <Contact />
