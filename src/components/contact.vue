@@ -134,7 +134,7 @@ const contactInfo = [
     icon: Phone,
     title: 'Téléphone',
     value: '+229 01 43 65 57 21',
-    link: 'tel:+22943655721'
+    link: 'tel:+2290143655721'
   }
 ]
 
