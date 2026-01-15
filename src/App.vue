@@ -1,6 +1,7 @@
 <script setup>
 import NavBar from './layouts/NavBar.vue';
 import FooterPart from './layouts/FooterPart.vue';
+import AIChatWidget from './components/AIChatWidget.vue';
 import { onMounted, ref, onBeforeUnmount } from 'vue';
 
 const isScrolled = ref(false);
@@ -50,10 +51,13 @@ onBeforeUnmount(() => {
       <FooterPart />
     </div>
 
+    <!-- AI Chat Widget -->
+    <AIChatWidget />
+
     <!-- Bouton de retour en haut -->
     <button 
       @click="scrollToTop"
-      class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-neutral-800 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-[#E9E1D1] hover:text-neutral-800"
+      class="fixed bottom-6 left-6 z-50 w-12 h-12 bg-neutral-800 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-[#E9E1D1] hover:text-neutral-800"
       :class="{ 'opacity-100': showScrollTop, 'opacity-0': !showScrollTop, 'pointer-events-none': !showScrollTop }"
       aria-label="Retour en haut"
     >
@@ -82,7 +86,7 @@ button:hover {
   
   button {
     bottom: 5rem;
-    right: 1.5rem;
+    left: 1.5rem;
   }
 }
 
@@ -93,7 +97,7 @@ button:hover {
   
   button {
     bottom: 4rem;
-    right: 1rem;
+    left: 1rem;
   }
 }
 </style>
