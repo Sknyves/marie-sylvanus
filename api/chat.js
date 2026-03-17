@@ -45,76 +45,125 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
-    const { chatInput } = req.body;
+    const { chatInput, history = [], stream = false } = req.body;
 
     try {
         const contextChunks = await getContext(chatInput);
         const contextText = contextChunks.map(c => c.text).join('\n\n');
 
         const systemPrompt = `Tu es Marie Sylvanus KINKPON, développeur full-stack expert et consultant IA.
-Ton but est de CONVAINCRE et d'ACQUÉRIR le client en montrant ton expertise et les bénéfices de tes solutions.
+Ton but est de CONVAINCRE et d'ACQUÉRIR le client.
 
-### IDENTITÉ ET TON :
-- Tu es Marie Sylvanus KINKPON (Développeur, Consultant, Expert IA).
-- Tu es un HOMME. Utilise le masculin.
-- Ton site/portfolio : https://marie-sylvanus.vercel.app/
-- Professionnel, dynamique, persuasif. Focus sur le ROI.
-- NE MENTIONNE JAMAIS : "Mailzeet", "Groq", "RAG", "Llama" ou tout terme technique interne.
+### IDENTITÉ :
+- Homme, expert, persuasif. 
+- Site : https://marie-sylvanus.vercel.app/
+- Interdiction de citer "Groq", "Mailzeet", etc.
 
 ### DESIGN DES RÉPONSES :
-- Utilise abondamment le Markdown pour structurer tes réponses (gras, listes, titres).
-- Les réponses doivent paraître organisées, "designées" et faciles à lire d'un coup d'œil.
-- Insère ton lien Portfolio naturellement quand c'est pertinent.
+- Utilise le Markdown : **gras**, listes, et SURTOUT des **tableaux** pour présenter des options ou tarifs si pertinent.
+- Organise tes réponses pour qu'elles soient visuellement "premium".
 
 ### BASE DE CONNAISSANCES :
-Utilise les informations suivantes pour étayer tes réponses :
 ${contextText}
 
-### STRATÉGIE DE VENTE :
-1. **Accroche personnalisée** : Montre que tu comprends le besoin de l'utilisateur.
-2. **Solution orientée bénéfices** : Explique ce que tu vas apporter (gain de temps, économies, design premium).
-3. **Preuve sociale** : Mentionne tes 50+ projets et 30+ clients satisfaits.
-4. **Appel à l'action (CTA)** : Propose systématiquement un appel de 15 min ou demande ses coordonnées pour discuter du projet.
+### STRATÉGIE :
+1. Découverte : Obtiens NOM, BUT du projet, et EMAIL.
+2. ROI : Prouve la valeur.
+3. Call to Action : Propose un appel de 15 min.`;
 
-### INSTRUCTIONS SPÉCIALES :
-Si l'utilisateur a fourni son email, son numéro ou souhaite un rendez-vous, réponds de manière très enthousiaste en confirmant que tu as bien pris note et que tu vas le recontacter très rapidement pour fixer les détails. Ne mentionne PAS que tu utilises un service tiers pour l'email.
+        const messages = [
+            { role: 'system', content: systemPrompt },
+            ...history,
+            { role: 'user', content: chatInput }
+        ];
 
-Garde tes réponses en markdown propre.`;
+        if (stream) {
+            // STREAMING MODE
+            res.setHeader('Content-Type', 'text/event-stream');
+            res.setHeader('Cache-Control', 'no-cache');
+            res.setHeader('Connection', 'keep-alive');
 
-        const chatCompletion = await groq.chat.completions.create({
-            messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: chatInput }
-            ],
-            model: 'llama-3.3-70b-versatile',
-            temperature: 0.6,
-        });
+            const streamResponse = await groq.chat.completions.create({
+                messages: messages,
+                model: 'llama-3.3-70b-versatile',
+                temperature: 0.6,
+                stream: true,
+            });
 
-        const responseText = chatCompletion.choices[0].message.content;
+            let fullText = '';
+            for await (const chunk of streamResponse) {
+                const content = chunk.choices[0]?.delta?.content || '';
+                fullText += content;
+                res.write(`data: ${JSON.stringify({ chunk: content })}\n\n`);
+            }
 
-        // Lead Detection (rudimentary)
-        const emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
-        const phonePattern = /(\+?[\d\s-]{8,})/;
-        const hasEmail = emailPattern.test(chatInput);
-        const hasPhone = phonePattern.test(chatInput) && chatInput.length < 100; // avoid long nonsense strings
+            res.write('data: [DONE]\n\n');
+            res.end();
 
-        if (hasEmail || hasPhone) {
-            console.log('Lead detected, sending notification...');
-            // Trigger internal function instead of HTTP fetch
-            const contact = hasEmail ? chatInput.match(emailPattern)[0] : (hasPhone ? chatInput.match(phonePattern)[0] : 'Inconnu');
-            
-            // Fire and forget
-            sendLeadEmail({
-                name: 'Prospect Chatbot',
-                email: contact,
-                projectDescription: `L'utilisateur a laissé ses coordonnées dans le chat : "${chatInput}"`,
-                appointmentDate: 'À définir'
-            }).catch(err => console.error('Internal lead email failed:', err));
+            // Background Lead Extraction after stream ends
+            handleLeadExtraction(chatInput, history, fullText).catch(e => console.error('Lead extraction error:', e));
+            return;
+        } else {
+            // NON-STREAMING MODE (Legacy/Testing)
+            const chatCompletion = await groq.chat.completions.create({
+                messages: messages,
+                model: 'llama-3.3-70b-versatile',
+                temperature: 0.6,
+            });
+
+            const responseText = chatCompletion.choices[0].message.content;
+            res.status(200).json({ output: responseText });
+
+            handleLeadExtraction(chatInput, history, responseText).catch(e => console.error('Lead extraction error:', e));
         }
-
-        res.status(200).json({ output: responseText });
     } catch (error) {
         console.error('Error in chat handler:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        if (!res.writableEnded) {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+}
+
+async function handleLeadExtraction(userInput, history, botResponse) {
+    const emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
+    const phonePattern = /(\+?[\d\s-]{8,})/;
+    
+    if (emailPattern.test(userInput) || phonePattern.test(userInput) || emailPattern.test(botResponse)) {
+        console.log('Potential lead detected, starting LLM extraction...');
+        
+        // Use a fast model to extract structured data
+        const extractionPrompt = `Extrais les informations suivantes de cet échange entre un client et un assistant IA.
+Réponds UNIQUEMENT en JSON valide.
+
+CONVERSATION :
+${history.map(m => `[${m.role}] ${m.content}`).join('\n')}
+[user] ${userInput}
+
+STRUCTURE JSON :
+{
+  "name": "Nom complet ou 'Inconnu'",
+  "email": "Email ou null",
+  "phone": "Téléphone ou null",
+  "goal": "But du projet / intention",
+  "is_lead": true/false
+}`;
+
+        const extraction = await groq.chat.completions.create({
+            messages: [{ role: 'system', content: extractionPrompt }],
+            model: 'llama-3.1-8b-instant',
+            response_format: { type: "json_object" },
+            temperature: 0.1,
+        });
+
+        const data = JSON.parse(extraction.choices[0].message.content);
+
+        if (data.is_lead && (data.email || data.phone)) {
+            sendLeadEmail({
+                name: data.name,
+                email: data.email || data.phone,
+                projectDescription: `Goal: ${data.goal}\nContext: ${userInput}`,
+                appointmentDate: 'À définir'
+            }).catch(err => console.error('Lead email failed:', err));
+        }
     }
 }
