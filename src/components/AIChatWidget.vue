@@ -10,7 +10,8 @@ const isLoading = ref(false)
 const chatContainer = ref(null)
 const sessionId = ref(`session_${Math.random().toString(36).substring(7)}`)
 
-const N8N_WEBHOOK_URL = 'https://meldev.app.n8n.cloud/webhook/e5616171-e3b5-4c39-81d4-67409f9fa60a/chat'
+const CHAT_API_URL = '/api/chat'
+const APPOINTMENT_API_URL = '/api/appointment'
 
 // Message de bienvenue
 onMounted(() => {
@@ -57,8 +58,8 @@ const sendMessage = async () => {
   })
 
   try {
-    // Appel au webhook n8n
-    const response = await fetch(N8N_WEBHOOK_URL, {
+    // Appel au backend Groq + RAG
+    const response = await fetch(CHAT_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -181,8 +182,8 @@ const formatMessage = (text) => {
           <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
           
           <div class="flex items-center gap-4 relative z-10">
-            <div class="w-12 h-12 bg-gradient-to-tr from-neutral-200 to-white rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
-              <Sparkles class="w-7 h-7 text-neutral-900" />
+            <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg transform rotate-3 bg-white border border-white/20">
+              <img src="/about-photo.png" alt="Marie Sylvanus" class="w-full h-full object-cover">
             </div>
             <div>
               <h3 class="text-white font-black tracking-tight text-lg">Marie Sylvanus</h3>
@@ -209,9 +210,9 @@ const formatMessage = (text) => {
           >
             <div
               :class="[
-                'max-w-[88%] px-6 py-4 shadow-sm border leading-relaxed text-[15px]',
+                'max-w-[88%] px-6 py-4 shadow-sm border leading-relaxed text-[15px] transform transition-all duration-300 hover:scale-[1.01]',
                 msg.type === 'user'
-                  ? 'bg-neutral-900 text-white rounded-[24px_24px_4px_24px] border-neutral-800'
+                  ? 'bg-neutral-900 text-white rounded-[24px_24px_4px_24px] border-neutral-800 shadow-[0_4px_15px_rgba(0,0,0,0.1)]'
                   : 'bg-white text-neutral-800 rounded-[24px_24px_24px_4px] border-gray-100 shadow-[0_4px_12px_rgba(0,0,0,0.03)]'
               ]"
             >
@@ -254,7 +255,7 @@ const formatMessage = (text) => {
             </button>
           </div>
           <p class="text-[10px] text-gray-400 mt-3 text-center font-medium uppercase tracking-wider">
-            Propulsé par n8n & IA • Marie Sylvanus Kinkpon
+            Propulsé par Groq & Marie Sylvanus • Full-Stack & IA
           </p>
         </div>
       </div>
@@ -266,9 +267,9 @@ const formatMessage = (text) => {
       class="bg-neutral-900 text-white w-18 h-18 w-[72px] h-[72px] rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] transition-all duration-500 flex items-center justify-center group hover:scale-105 relative border border-white/10"
     >
       <Transition name="icon">
-        <div v-if="!isOpen" class="relative">
-          <MessageCircle class="w-8 h-8 group-hover:scale-110 transition-transform" />
-          <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-neutral-900"></span>
+        <div v-if="!isOpen" class="relative w-full h-full flex items-center justify-center">
+          <img src="/logo.png" alt="Chat" class="w-10 h-10 group-hover:scale-110 transition-transform object-contain p-1">
+          <span class="absolute top-4 right-4 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-neutral-900"></span>
         </div>
         <X v-else class="w-8 h-8" />
       </Transition>

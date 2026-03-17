@@ -15,7 +15,7 @@ const projects = [
     image: "/projects/1.png",
     technologies: ["Vue.js", "TailwindCSS", "Pinia", "Node.js", "MongoDB"],
     github: "https://github.com/Sknyves/ecommerce-vue",
-    demo: "https://any-frontend.vercel.app/",
+    demo: "https://any-teal.vercel.app/",
     category: "Web"
   },
   {

@@ -1,0 +1,68 @@
+{
+  "profile": {
+    "name": "Marie Sylvanus KINKPON",
+    "role": "Développeur Full-Stack & IA",
+    "description": "Développeur full-stack avec une expertise en Vue.js, Python et intelligence artificielle. Spécialisé dans la conception d'applications web, mobiles et desktop performantes.",
+    "experience": "3+ ans",
+    "projects_count": "50+",
+    "clients_count": "30+",
+    "contacts": {
+      "whatsapp": "+229 01 43 65 57 21",
+      "website": "https://marie-sylvanus.vercel.app",
+      "email": "marie-sylvanus@example.com"
+    }
+  },
+  "services": [
+    {
+      "name": "Développement Web",
+      "details": "Sites vitrines, e-commerce, portfolios optimisés pour le SEO et le mobile.",
+      "price_range": "800€ - 2500€"
+    },
+    {
+      "name": "Solutions IA & Chatbots",
+      "details": "Intégration de modèles Groq, OpenAI, Computer Vision (TensorFlow/Keras).",
+      "price_range": "1200€ - 2500€"
+    },
+    {
+      "name": "Applications Desktop",
+      "details": "Logiciels sur mesure avec Python, PyQt, Nativefier.",
+      "price_range": "Sur devis"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Ivy",
+      "description": "Logiciel assistant du secrétariat (Vue, Django, Tailwind, Nativefier).",
+      "categories": ["Desktop", "Web", "IA"]
+    },
+    {
+      "title": "Kola Son",
+      "description": "Plateforme d'anciennes musiques béninoises.",
+      "categories": ["Web"]
+    },
+    {
+      "title": "Outil de Reconnaissance Visuelle",
+      "description": "Application desktop avec CNN personnalisé pour la classification d'images industrielles.",
+      "categories": ["Desktop", "IA"]
+    },
+    {
+      "title": "Waari Festival",
+      "description": "Site officiel du Waari Festival 2025.",
+      "categories": ["Web"]
+    }
+  ],
+  "faq": [
+    {
+      "question": "Quel est le délai de réalisation ?",
+      "answer": "Généralement 2 à 4 semaines selon la complexité du projet."
+    },
+    {
+      "question": "Quels sont les modes de paiement ?",
+      "answer": "30% au démarrage, 40% à mi-parcours, 30% à la livraison."
+    },
+    {
+      "question": "Offrez-vous un support après livraison ?",
+      "answer": "Oui, 3 mois de support sont inclus avec chaque projet."
+    }
+  ]
+}
