@@ -166,7 +166,7 @@ const formatMessage = (text) => {
         class="chat-window absolute bottom-20 right-0 w-[400px] h-[600px] bg-white rounded-[32px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)] flex flex-col overflow-hidden border border-gray-100/50 backdrop-blur-sm"
       >
         <!-- Header -->
-        <div class="bg-neutral-900 border-b border-white/5 p-6 flex items-center justify-between relative overflow-hidden">
+        <div class="bg-neutral-900 border-b border-white/5 p-4 sm:p-6 flex items-center justify-between relative overflow-hidden">
           <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
           
           <div class="flex items-center gap-4 relative z-10">
@@ -181,15 +181,27 @@ const formatMessage = (text) => {
               </div>
             </div>
           </div>
-          <button @click="toggleChat" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-2.5 rounded-2xl transition-all duration-300 relative z-10">
-            <X class="w-5 h-5" />
-          </button>
+          <div class="flex items-center gap-2 relative z-10">
+            <!-- WhatsApp Icon -->
+            <a 
+              href="https://wa.me/2290143655721" 
+              target="_blank"
+              class="text-gray-400 hover:text-[#25D366] bg-white/5 hover:bg-white/10 p-2.5 rounded-2xl transition-all duration-300"
+              title="WhatsApp"
+            >
+              <MessageCircle class="w-5 h-5" />
+            </a>
+            <!-- Close Button -->
+            <button @click="toggleChat" class="text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 p-2.5 rounded-2xl transition-all duration-300">
+              <X class="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         <!-- Messages Area -->
         <div class="flex-1 overflow-hidden flex flex-col bg-[radial-gradient(circle_at_top_right,rgba(240,240,240,0.5),transparent)]">
           <!-- Chat History -->
-          <div ref="chatContainer" class="flex-1 overflow-y-auto p-6 space-y-6">
+          <div ref="chatContainer" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6">
             <div
               v-for="(msg, index) in messages"
               :key="index"
@@ -225,22 +237,12 @@ const formatMessage = (text) => {
               </button>
             </div>
 
-            <!-- WhatsApp CTA -->
-            <div v-if="messages.length > 3">
-              <a 
-                href="https://wa.me/2290143655721" 
-                target="_blank"
-                class="flex items-center justify-center gap-2 w-full py-3 bg-[#25D366] text-white rounded-2xl font-black text-sm shadow-lg shadow-green-500/20 hover:scale-[1.02] transition-transform"
-              >
-                <MessageCircle class="w-4 h-4" />
-                DISCUTER SUR WHATSAPP
-              </a>
-            </div>
+
           </div>
         </div>
 
         <!-- Input Area -->
-        <div class="p-5 bg-white border-t border-gray-100">
+        <div class="p-4 sm:p-5 bg-white border-t border-gray-100">
           <div class="flex gap-3">
             <input
               v-model="userMessage"
@@ -268,7 +270,10 @@ const formatMessage = (text) => {
     <!-- Bouton d'ouverture -->
     <button
       @click="toggleChat"
-      class="bg-neutral-900 text-white w-[72px] h-[72px] rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] transition-all duration-500 flex items-center justify-center group hover:scale-105 relative border border-white/10"
+      :class="[
+        'bg-neutral-900 text-white w-[72px] h-[72px] rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] transition-all duration-500 flex items-center justify-center group hover:scale-105 relative border border-white/10',
+        isOpen ? 'hidden sm:flex' : 'flex'
+      ]"
     >
       <Transition name="icon">
         <div v-if="!isOpen" class="relative w-full h-full flex items-center justify-center">
@@ -337,10 +342,17 @@ const formatMessage = (text) => {
 /* Responsive */
 @media (max-width: 640px) {
   .chat-window {
-    width: calc(100vw - 32px);
-    height: calc(100vh - 120px);
-    bottom: 80px;
-    right: -8px;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
+    z-index: 1000 !important;
   }
 }
 
