@@ -214,12 +214,12 @@ const formatMessage = (text) => {
           <!-- Bottom Actions (Quick Replies & WhatsApp) -->
           <div class="p-4 space-y-4">
             <!-- Quick Replies -->
-            <div v-if="!isLoading && quickReplies.length > 0" class="flex flex-wrap gap-2">
+            <div v-if="!isLoading && quickReplies.length > 0" class="flex overflow-x-auto gap-2 pb-2 no-scrollbar">
               <button 
                 v-for="reply in quickReplies" 
                 :key="reply"
                 @click="sendMessage(reply)"
-                class="text-[11px] px-3 py-1.5 bg-white border border-gray-200 rounded-full hover:border-neutral-900 hover:text-neutral-900 transition-all font-bold uppercase tracking-wider shadow-sm"
+                class="text-[11px] px-3 py-1.5 bg-white border border-gray-200 rounded-full hover:border-neutral-900 hover:text-neutral-900 transition-all font-bold uppercase tracking-wider shadow-sm flex-shrink-0"
               >
                 {{ reply }}
               </button>
@@ -342,5 +342,13 @@ const formatMessage = (text) => {
     bottom: 80px;
     right: -8px;
   }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
