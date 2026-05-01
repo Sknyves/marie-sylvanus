@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Bodoni+Moda:wght@400;900&family=Cormorant:wght@700&family=League+Gothic&family=Medula+One&family=Syncopate:wght@400;700&family=Michroma&display=swap');
+
+@font-face {
+  font-family: 'Perfect Dark';
+  src: url('/fonts/pdark.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --accent-color: #ffffff;
+  --accent-glow: rgba(255, 255, 255, 0.2);
+  --secondary-color: #888888;
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --font-main: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+section {
+  min-height: 100vh;
+  padding: 8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1, h2, h3 {
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 1px; /* Sharp modern edges */
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.glass:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+
+@media (max-width: 768px) {
+  section {
+    padding: 4rem 1rem;
+  }
+}
