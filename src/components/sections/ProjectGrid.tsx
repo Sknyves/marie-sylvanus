@@ -5,122 +5,19 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 
-gsap.registerPlugin(ScrollTrigger);
-
-interface Project {
-  id: string;
-  title: string;
-  category: string;
-  externalLink: string;
-  description: string;
-  image?: string;
-  year: string;
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
 }
 
-const projectsData: Project[] = [
-  {
-    id: 'barika',
-    title: 'ONG Barika Bénin',
-    category: 'Social / Culture',
-    externalLink: 'https://barika-benin.vercel.app/',
-    description: 'Plateforme dédiée à l\'autonomisation des femmes par les AGR et à la promotion de la culture Waama à Natitingou.',
-    image: '/projects/barika.png',
-    year: '2024'
-  },
-  {
-    id: 'roajelf',
-    title: 'Roajelf Bénin',
-    category: 'Leadership / Féminisme',
-    externalLink: 'https://roajelf.vercel.app/',
-    description: 'Réseau Ouest Africain des Jeunes Femmes Leaders, mobilisant la jeunesse féminine pour le développement du Bénin.',
-    image: '/projects/requestflow.png',
-    year: '2024'
-  },
-  {
-    id: 'france-recours',
-    title: 'France Recours',
-    category: 'Expertise / Mobilité',
-    externalLink: 'https://france-recours.vercel.app/',
-    description: 'Solution digitale facilitant les démarches de visas et l\'assistance administrative pour la France.',
-    image: '/projects/uptown.png',
-    year: '2024'
-  },
-  {
-    id: 'neon-mind',
-    title: 'Neon Mind AI',
-    category: 'AI / Automation',
-    externalLink: 'https://neon-mind-nu.vercel.app/',
-    description: 'Ecosystème de blogging autonome propulsé par l\'IA, gérant la création et la publication sans intervention humaine.',
-    image: '/projects/aimusic.png',
-    year: '2025'
-  },
-  {
-    id: 'kola-son',
-    title: 'Kola Son',
-    category: 'Audio / Design',
-    externalLink: 'https://kola-son.vercel.app/',
-    description: 'Interface immersive pour la diffusion et la valorisation de productions audio et musicales.',
-    image: '/projects/aimusic.png',
-    year: '2025'
-  },
-  {
-    id: 'ai-interview',
-    title: 'AI Interview Agent',
-    category: 'AI / HR Tech',
-    externalLink: 'https://ai-interview-mu-red.vercel.app/',
-    description: 'Assistant intelligent en temps réel pour l\'optimisation des performances lors d\'entretiens en ligne.',
-    image: '/projects/comptaia.png',
-    year: '2025'
-  },
-  {
-    id: 'ets-pro',
-    title: 'ETS Pro CRM',
-    category: 'Enterprise / Gestion',
-    externalLink: 'https://ets-pro.vercel.app/',
-    description: 'Système de gestion multi-structures unifié pour le pilotage centralisé d\'activités commerciales.',
-    image: '/projects/comptaia.png',
-    year: '2024'
-  },
-  {
-    id: 'lbm',
-    title: 'LBM Drive',
-    category: 'Transport / Location',
-    externalLink: 'https://lbm-drive.vercel.app/',
-    description: 'Application de réservation et de gestion de flotte automobile pour la société LBM.',
-    image: '/projects/garage.png',
-    year: '2024'
-  },
-  {
-    id: 'any',
-    title: 'Any Restaurant',
-    category: 'FoodTech / Delivery',
-    externalLink: 'https://any-teal.vercel.app/',
-    description: 'Plateforme de commande en ligne intuitive conçue pour la transformation digitale des restaurateurs.',
-    image: '/projects/uptown.png',
-    year: '2024'
-  },
-  {
-    id: 'garde-meuble',
-    title: 'Garde Meuble',
-    category: 'Logistics / SaaS',
-    externalLink: 'https://garde-meuble.vercel.app/',
-    description: 'Optimisation de la gestion des espaces de stockage et du self-storage.',
-    image: '/projects/garage.png',
-    year: '2024'
-  },
-  {
-    id: 'k-ta',
-    title: 'K-ta EdTech',
-    category: 'Éducation / Outils',
-    externalLink: 'https://k-ta.vercel.app/',
-    description: 'Solution d\'accompagnement académique pour la structuration et la présentation d\'exposés.',
-    image: '/projects/requestflow.png',
-    year: '2024'
-  }
-];
+import { projectsList } from '@/data/projects';
 
-export default function ProjectGrid() {
+interface ProjectGridProps {
+  limit?: number;
+}
+
+export default function ProjectGrid({ limit }: ProjectGridProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const displayedProjects = limit ? projectsList.slice(0, limit) : projectsList;
 
   useEffect(() => {
     gsap.set('.project-card', { opacity: 0, y: 40 });
@@ -155,7 +52,7 @@ export default function ProjectGrid() {
         </div>
 
         <div className="project-grid">
-          {projectsData.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <div key={project.id} className="project-card" id={`project-card-${project.id}`}>
               {/* Image preview layer */}
               {project.image && (
@@ -198,9 +95,46 @@ export default function ProjectGrid() {
             </div>
           ))}
         </div>
+
+        {limit && (
+          <div className="project-footer">
+            <Link href="/work" className="view-all-btn">
+              <span>EXPLORER TOUS LES PROJETS</span>
+              <span className="btn-arrow">→</span>
+            </Link>
+          </div>
+        )}
       </div>
 
       <style jsx global>{`
+        .project-footer {
+          margin-top: 6vh;
+          display: flex;
+          justify-content: center;
+        }
+        .view-all-btn {
+          font-family: 'Perfect Dark', sans-serif;
+          font-size: 0.8rem;
+          color: #fff;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          padding: 1.5rem 3rem;
+          border: 1px solid rgba(255,255,255,0.1);
+          transition: all 0.4s ease;
+        }
+        .view-all-btn:hover {
+          background: #fff;
+          color: #000;
+          border-color: #fff;
+        }
+        .btn-arrow {
+          transition: transform 0.4s ease;
+        }
+        .view-all-btn:hover .btn-arrow {
+          transform: translateX(10px);
+        }
         .project-section {
           width: 100%;
           background: #000;
@@ -253,13 +187,16 @@ export default function ProjectGrid() {
           transition: border-color 0.5s ease;
         }
 
-        /* Image hover preview */
         .card-image-layer {
           position: absolute;
           inset: 0;
-          opacity: 0;
-          transition: opacity 0.6s ease;
+          opacity: 0.5; /* Visible par défaut */
+          transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease;
           z-index: 0;
+        }
+        .project-card:hover .card-image-layer {
+          transform: scale(1.05);
+          opacity: 0.8;
         }
         .card-preview-img {
           width: 100%;
@@ -271,9 +208,6 @@ export default function ProjectGrid() {
           position: absolute;
           inset: 0;
           background: rgba(0, 0, 0, 0.75);
-        }
-        .project-card:hover .card-image-layer {
-          opacity: 1;
         }
         .project-card:hover {
           border-color: #333;
@@ -370,40 +304,54 @@ export default function ProjectGrid() {
           font-size: 0.65rem;
           letter-spacing: 0.15em;
           position: relative;
-          color: #fff;
+          color: #000000 !important;
           text-decoration: none;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 1rem 2rem;
-          background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 1.2rem 2.4rem;
+          background: #ffffff;
+          border: 1px solid #ffffff;
           clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
           transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
           overflow: hidden;
-          z-index: 1;
+          z-index: 10;
+        }
+        .detail-label {
+          position: relative;
+          z-index: 5;
+          color: #000000 !important;
+          display: block;
         }
         .detail-btn::before {
-          content: '';
+          content: 'CLIQUER →';
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: #ffffff;
-          transform: scaleX(0);
-          transform-origin: right;
-          transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-          z-index: -1;
+          background: #000000;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transform: translateY(100%);
+          transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
         .detail-btn:hover {
-          color: #000000;
-          border-color: #ffffff;
-          font-weight: bold;
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
         .detail-btn:hover::before {
-          transform: scaleX(1);
-          transform-origin: left;
+          transform: translateY(0);
+        }
+        
+        .detail-btn:active {
+          transform: scale(0.95);
+        }
+
+        .project-card:hover .project-name {
+          color: #fff;
         }
 
         .project-year {
@@ -415,7 +363,7 @@ export default function ProjectGrid() {
 
         @media (max-width: 1024px) {
           .project-grid { grid-template-columns: 1fr; }
-          .project-card { min-height: 380px; }
+          .project-card { min-height: 400px; }
           .card-content { padding: 2rem; }
         }
         @media (max-width: 600px) {

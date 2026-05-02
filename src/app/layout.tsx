@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import SmoothScroll from "@/components/layout/SmoothScroll";
-import Preloader from '@/components/layout/Preloader';
+import SmoothScroll from "@/components/core/SmoothScroll";
+import Preloader from "@/components/core/Preloader";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://marie-sylvanus.com"),
@@ -55,7 +55,7 @@ export default function RootLayout({
     },
     "sameAs": [
       "https://www.linkedin.com/in/marie-sylvanus-734b432a9/",
-      "https://github.com/mariesylvanus",
+      "https://github.com/sknyves",
       "https://wa.me/+22943655721"
     ]
   };
@@ -69,6 +69,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <SmoothScroll>
+          <div className="noise-overlay" />
           {children}
         </SmoothScroll>
       </body>

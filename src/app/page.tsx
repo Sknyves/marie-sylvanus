@@ -2,14 +2,18 @@
 
 import { useEffect, useRef, use, useState } from 'react';
 import { gsap } from 'gsap';
-import TechSection from '@/components/sections/TechSection';
 import ProjectGrid from '@/components/sections/ProjectGrid';
+import Link from 'next/link';
 import ContactSection from '@/components/sections/ContactSection';
-import Footer from '@/components/layout/Footer';
+import Footer from '@/components/core/Footer';
+import Navbar from '@/components/core/Navbar';
+import ParticleBackground from '@/components/canvas/ParticleBackground';
+import LogoMarquee from '@/components/sections/LogoMarquee';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Navbar from '@/components/layout/Navbar';
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Home(props: any) {
   const params = use(props.params || Promise.resolve({}));
@@ -25,51 +29,9 @@ export default function Home(props: any) {
   const aboutRef = useRef<HTMLElement>(null);
   const aboutTextRef = useRef<HTMLDivElement>(null);
   const archGlowRef = useRef<HTMLDivElement>(null);
-  const [bubbles, setBubbles] = useState<Array<{left: string, delay: string, duration: string, size: string}>>([]);
-  const [archDots, setArchDots] = useState<Array<{left: string, top: string, size: string, opacity: number}>>([]);
 
   useEffect(() => {
-    // Generate bubbles on mount to prevent hydration mismatch
-    setBubbles(Array.from({ length: 40 }).map(() => ({
-      left: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 5}s`,
-      duration: `${4 + Math.random() * 6}s`,
-      size: `${2 + Math.random() * 4}px`
-    })));
-
-    // Generate internal arch deposit dots (Gaussian Cloud / Accumulation)
-    // Optimized count to 200 to prevent layout thrashing and scroll lag
-    const dotsCount = 200;
-    const newArchDots = [];
-    for (let i = 0; i < dotsCount; i++) {
-      // Uniformly distribute points along the x-axis, biased slightly to the center
-      let xVal = Math.pow(Math.random() * 2 - 1, 3);
-      if (Math.random() > 0.7) {
-        xVal = Math.random() * 2 - 1;
-      }
-      
-      const yVal = Math.sqrt(1 - xVal * xVal);
-      
-      // Box-Muller transform for normal distribution (Gaussian scatter)
-      let u = 0, v = 0;
-      while (u === 0) u = Math.random();
-      while (v === 0) v = Math.random();
-      let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-      
-      // radiusFactor centered around 1.0 (the border), with a standard deviation of ~3.5%
-      const radiusFactor = 1.0 + num * 0.035;
-      
-      const left = 50 + 50 * xVal * radiusFactor;
-      const top = 100 - 100 * yVal * radiusFactor;
-      
-      newArchDots.push({
-        left: `${left}%`,
-        top: `${top}%`,
-        size: `${1 + Math.random() * 2.5}px`, // Slightly larger to compensate for fewer dots
-        opacity: 0.1 + Math.random() * 0.5
-      });
-    }
-    setArchDots(newArchDots);
+    // WebGL Particles initialization handled in ParticleBackground component
   }, []);
 
   useEffect(() => {
@@ -134,7 +96,7 @@ export default function Home(props: any) {
           }
         );
       }
-      
+
 
 
       // ÉTAPE 2: Une fois que le blanc a totalement conquis (à la fin du scroll)
@@ -229,7 +191,7 @@ export default function Home(props: any) {
         );
 
         // Text reveal animation
-        tl.fromTo(aboutTextRef.current, 
+        tl.fromTo(aboutTextRef.current,
           { opacity: 0, y: 50 },
           { opacity: 1, y: 0, duration: 1.5, ease: 'power3.out' },
           0.2
@@ -244,7 +206,7 @@ export default function Home(props: any) {
 
   return (
     <main ref={containerRef}>
-      <Navbar />
+
 
       <div className="hero-scroll-wrapper" ref={heroWrapperRef}>
         {/* White Overlay - conquiert progressivement */}
@@ -269,7 +231,7 @@ export default function Home(props: any) {
               </a>
               <a href="https://wa.me/+22943655721" target="_blank" rel="noopener noreferrer" className="social-link" title="WhatsApp">
                 <svg className="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                  <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.233-1.373a9.945 9.945 0 0 0 4.779 1.214h.004c5.505 0 9.988-4.478 9.989-9.984 0-2.669-1.037-5.176-2.922-7.062A9.925 9.925 0 0 0 12.012 2zm0 18.33h-.003a8.307 8.307 0 0 1-4.232-1.157l-.304-.18-3.145.825.84-3.067-.197-.314a8.3 8.3 0 0 1-1.272-4.453c.001-4.577 3.725-8.3 8.304-8.3 2.217 0 4.302.863 5.864 2.426a8.243 8.243 0 0 1 2.43 5.877c-.001 4.577-3.725 8.301-8.304 8.301zm4.55-6.216c-.25-.124-1.477-.73-1.704-.811-.227-.082-.392-.124-.556.124-.165.247-.638.811-.782.977-.144.166-.288.187-.538.063-.25-.125-1.054-.388-2.008-1.239-.742-.662-1.243-1.48-1.388-1.73-.144-.25-.015-.385.11-.51.111-.11.25-.291.375-.437.125-.145.166-.25.25-.417.083-.166.042-.312-.02-.437-.063-.125-.557-1.343-.763-1.841-.2-.487-.404-.421-.556-.429h-.475c-.165 0-.433.062-.659.312-.227.25-.865.846-.865 2.062 0 1.216.885 2.394 1.01 2.56.124.166 1.74 2.656 4.215 3.726.589.255 1.048.407 1.407.521.592.188 1.13.161 1.556.097.475-.07 1.477-.604 1.684-1.187.206-.584.206-1.084.144-1.188-.062-.104-.227-.166-.477-.29z" />
                 </svg>
               </a>
             </div>
@@ -289,34 +251,7 @@ export default function Home(props: any) {
       {/* NEW ABOUT SECTION (ARCH & GLOW) */}
       <section className="about-section" ref={aboutRef}>
         <div className="about-glow" ref={archGlowRef}>
-          {/* Internal constellation deposits (arch edge) */}
-          {archDots.map((d, i) => (
-            <span 
-              key={`dot-${i}`} 
-              className="arch-deposit-dot"
-              style={{
-                left: d.left,
-                top: d.top,
-                width: d.size,
-                height: d.size,
-                opacity: d.opacity
-              }} 
-            />
-          ))}
-          
-          {bubbles.map((b, i) => (
-            <span 
-              key={i} 
-              className="bubble" 
-              style={{
-                left: b.left,
-                animationDelay: b.delay,
-                animationDuration: b.duration,
-                width: b.size,
-                height: b.size
-              }} 
-            />
-          ))}
+          <ParticleBackground />
         </div>
         <div className="about-container" ref={aboutTextRef}>
           <h2 className="about-title">
@@ -325,13 +260,13 @@ export default function Home(props: any) {
           <p className="about-subtitle" ref={aboutTextRef}>
             Basé à Cotonou et fort d'une expérience internationale chez <span className="highlight">Neural Bridge (Londres)</span>, <span className="highlight">Call Connect</span>, et ayant affiné mes compétences chez <span className="highlight">Tpapy</span> et <span className="highlight">Blue Life Tech</span>, je combine architecture technique de pointe et intelligence artificielle pour concevoir des écosystèmes numériques performants pour le monde entier.
           </p>
-          <button className="about-btn">
+          <button className="about-btn" onClick={() => (window.location.href = '/about')}>
             <span className="btn-text-wrapper">
-              <span className="btn-text" data-text="DECOUVRIR">DECOUVRIR</span>
+              <span className="btn-text" data-text="DÉCOUVRIR">DÉCOUVRIR</span>
             </span>
             <span className="btn-arrow">↗</span>
           </button>
-          
+
           {/* Decorative lines at bottom */}
           <div className="about-decor">
             <span></span><span></span><span></span><span></span>
@@ -339,11 +274,11 @@ export default function Home(props: any) {
         </div>
       </section>
 
-      {/* TECH SECTION */}
-      <TechSection />
+      {/* LOGO MARQUEE SECTION */}
+      <LogoMarquee />
 
       {/* PROJECTS SECTION */}
-      <ProjectGrid />
+      <ProjectGrid limit={4} />
 
       {/* CONTACT SECTION */}
       <ContactSection />
@@ -363,7 +298,7 @@ export default function Home(props: any) {
         /* ABOUT SECTION */
         .about-section {
           width: 100%;
-          min-height: 100vh;
+          min-height: 80vh; /* Reduced from 100vh */
           background: #ffffff;
           color: #111111;
           display: flex;
@@ -371,6 +306,7 @@ export default function Home(props: any) {
           justify-content: center;
           position: relative;
           z-index: 30; /* Above the white overlay */
+          padding: 10vh 0; /* Added padding for better spacing */
         }
 
         .about-glow {
@@ -485,6 +421,7 @@ export default function Home(props: any) {
           padding: 0;
           cursor: pointer;
           text-transform: uppercase;
+          text-decoration: none;
           display: flex;
           align-items: center;
           gap: 0.75rem;
@@ -546,7 +483,7 @@ export default function Home(props: any) {
         .about-decor {
           display: flex;
           gap: 2rem;
-          margin-top: 5rem;
+          margin-top: 3rem; /* Reduced from 5rem */
         }
 
         .about-decor span {
@@ -672,7 +609,7 @@ export default function Home(props: any) {
           top: 45%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 80vh;
+          width: min(80vh, 100%);
           height: 100vh;
           z-index: 5;
           pointer-events: none;
@@ -797,15 +734,18 @@ export default function Home(props: any) {
             padding: 0 1vw 5vh;
           }
           .main-title {
-            font-size: clamp(1.8rem, 16vw, 4rem);
+            font-size: clamp(1.5rem, 14vw, 3.5rem);
           }
           .portrait-container {
-            width: 100vw;
-            height: 70vh;
-            top: 40%;
+            width: 100%;
+            height: 60vh;
+            top: 45%;
           }
+          .side-label { display: none; }
+          .social-links { right: 1rem; bottom: 12vh; gap: 1rem; }
         }
       `}</style>
+      <Navbar />
     </main>
   );
 }

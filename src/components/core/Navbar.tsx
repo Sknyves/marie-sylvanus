@@ -5,11 +5,12 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const cubeRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
@@ -53,56 +54,35 @@ export default function Navbar() {
 
   // Menu items stagger in/out
   useEffect(() => {
-    const items = menuItemsRef.current;
-    if (!items.length) return;
     if (isOpen) {
-      gsap.fromTo(items,
-        { y: 80, opacity: 0, skewY: 5 },
-        { y: 0, opacity: 1, skewY: 0, stagger: 0.07, duration: 0.9, ease: 'expo.out', delay: 0.2 }
+      gsap.fromTo('.overlay-link',
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.1, duration: 0.8, ease: 'power4.out', delay: 0.2 }
+      );
+      gsap.fromTo('.aside-block',
+        { opacity: 0, x: 20 },
+        { opacity: 1, x: 0, duration: 0.8, delay: 0.5, stagger: 0.1 }
       );
     } else {
-      gsap.to(items, { y: -30, opacity: 0, duration: 0.4, ease: 'expo.in', stagger: 0.04 });
+      gsap.to('.overlay-link', { opacity: 0, y: -20, duration: 0.3 });
+      gsap.to('.aside-block', { opacity: 0, duration: 0.3 });
     }
   }, [isOpen]);
 
   // Scroll color change (Dynamic detection of light sections)
   useEffect(() => {
-    const lightSections = document.querySelectorAll('.light-section, [data-theme="light"]');
-    if (lightSections.length > 0) {
-      const triggers: ScrollTrigger[] = [];
-      lightSections.forEach(section => {
-        const st = ScrollTrigger.create({
-          trigger: section,
-          start: 'top 80px',
-          end: 'bottom 80px',
-          onEnter: () => setIsScrolled(true),
-          onLeave: () => setIsScrolled(false),
-          onEnterBack: () => setIsScrolled(true),
-          onLeaveBack: () => setIsScrolled(false),
-        });
-        triggers.push(st);
-      });
-      return () => triggers.forEach(t => t.kill());
-    } else {
-      // Default fallback
-      const st = ScrollTrigger.create({
-        start: '120vh top',
-        onEnter: () => setIsScrolled(true),
-        onLeaveBack: () => setIsScrolled(false),
-      });
-      return () => st.kill();
-    }
+    // We now use mix-blend-mode: difference for automatic color adaptation
   }, []);
 
   const navLinks = [
-    { label: 'Archive', href: '/', sub: 'Index' },
-    { label: 'Works', href: '/#work', sub: 'Portfolio' },
     { label: 'About', href: '/about', sub: 'Profil' },
+    { label: 'Works', href: '/work', sub: 'Portfolio' },
     { label: 'Contact', href: '/#contact', sub: 'Parlons' },
   ];
 
   return (
-    <nav className="nav-container">
+    <>
+    <nav className="nav-container" style={{ mixBlendMode: isOpen ? 'normal' : 'difference' as any }}>
       <div className="perspective-wrapper">
         <div className="cube-bar" ref={cubeRef}>
 
@@ -110,7 +90,7 @@ export default function Navbar() {
           <div className="face face-a">
             <div className="nav-layout">
               <div className="nav-left">
-                <button className={`menu-trigger ${isScrolled ? 'light' : ''}`} onClick={toggleMenu} aria-label="Ouvrir le menu">
+                <button className="menu-trigger" onClick={toggleMenu} aria-label="Ouvrir le menu">
                   <div className="icon-asym">
                     <span className="line l1" />
                     <span className="line l2" />
@@ -119,7 +99,7 @@ export default function Navbar() {
                 </button>
               </div>
               <div className="nav-right">
-                <Link href="/#contact" className={`contact-btn ${isScrolled ? 'light' : ''}`}>
+                <Link href="/#contact" className="contact-btn">
                   <span className="contact-inner">Contact</span>
                 </Link>
               </div>
@@ -132,88 +112,79 @@ export default function Navbar() {
               <div className="nav-left">
                 <button className="menu-trigger light" onClick={toggleMenu} aria-label="Fermer le menu">
                   <div className="icon-close">
-                    <span className="line c1" />
-                    <span className="line c2" />
+                    <span className="line c1" style={{ background: '#fff' }} />
+                    <span className="line c2" style={{ background: '#fff' }} />
                   </div>
-                  <span className="tiny-label">Close</span>
+                  <span className="tiny-label" style={{ color: '#fff' }}>Close</span>
                 </button>
               </div>
 
-              <div className="nav-center desktop-only">
-                <div className="nav-items-horizontal" ref={linksRef}>
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      className="nav-item-link"
-                      onMouseEnter={handleLinkHover}
-                      onMouseLeave={handleLinkLeave}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <span className="link-text">{link.label}</span>
-                    </Link>
-                  ))}
-                  <div className="nav-underline" ref={underlineRef} />
-                </div>
-              </div>
+              
 
               <div className="nav-right">
-                <Link href="/#contact" className="contact-btn light" onClick={() => setIsOpen(false)}>
+                <Link href="/#contact" className="contact-btn" style={{ background: '#fff', color: '#000' }} onClick={() => setIsOpen(false)}>
                   <span className="contact-inner">Contact</span>
                 </Link>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </nav>
 
-        {/* FULL-SCREEN MENU OVERLAY */}
-        <div className={`menu-overlay ${isOpen ? 'is-open' : ''}`} ref={overlayRef}>
-          <div className="overlay-inner">
+    {/* FULL-SCREEN MENU OVERLAY — TOTALLY DISCONNECTED FROM CONSTRAINED CONTAINERS */}
+    <div className={`menu-overlay ${isOpen ? 'is-open' : ''}`} ref={overlayRef}>
+      <div className="overlay-inner">
+        <div className="overlay-links">
+          {navLinks.map((link, i) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="overlay-link"
+              ref={(el) => { if (el) menuItemsRef.current[i] = el; }}
+              onClick={() => setIsOpen(false)}
+            >
+              <div className="ol-content">
+                <span className="ol-num">0{i + 1}</span>
+                <span className="ol-label">{link.label}</span>
+              </div>
+              <span className="ol-sub">{link.sub}</span>
+              <span className="ol-arrow">↗</span>
+            </Link>
+          ))}
+        </div>
 
-            {/* Left column: main links */}
-            <div className="overlay-links">
-              {navLinks.map((link, i) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="overlay-link"
-                  ref={(el) => { if (el) menuItemsRef.current[i] = el; }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span className="ol-num">0{i + 1}</span>
-                  <span className="ol-divider" />
-                  <span className="ol-label">{link.label}</span>
-                  <span className="ol-arrow">→</span>
-                </Link>
-              ))}
-            </div>
-
-            {/* Right column: decorative info */}
-            <div className="overlay-aside">
-              <div className="aside-block">
-                <span className="aside-tag">DISPONIBLE</span>
-                <p className="aside-desc">Ouvert aux collaborations&nbsp;et projets créatifs.</p>
-              </div>
-              <div className="aside-block">
-                <span className="aside-tag">STACK</span>
-                <p className="aside-desc">Next.js · Three.js · GSAP · AI</p>
-              </div>
-              <div className="aside-copy">
-                © {new Date().getFullYear()} K. Marie Sylvanus M.
-              </div>
-            </div>
+        <div className="overlay-aside desktop-only">
+          <div className="aside-block">
+            <span className="aside-tag">STATUT</span>
+            <p className="aside-desc">DISPONIBLE POUR NOUVEAUX PROJETS</p>
+          </div>
+          <div className="aside-block">
+            <span className="aside-tag">EXPERTISE</span>
+            <p className="aside-desc">NEXT.JS · THREE.JS · AI ARCHITECTURE</p>
+          </div>
+          <div className="aside-copy">
+            © {new Date().getFullYear()} MARIE SYLVANUS
           </div>
         </div>
       </div>
+    </div>
 
-      <style jsx global>{`
+    <style jsx global>{`
         /* ── CONTAINER ── */
         .nav-container {
           position: fixed;
           top: 0;
           left: 3.5rem;
           right: 3.5rem;
-          z-index: 1000;
+          z-index: 2100;
+          pointer-events: none;
+        }
+        .menu-trigger, .contact-btn {
+          pointer-events: auto;
+        }
+        .menu-trigger {
+          color: #ffffff; /* Use white for perfect difference inversion */
         }
 
         .perspective-wrapper {
@@ -230,6 +201,7 @@ export default function Navbar() {
           transform-style: preserve-3d;
           will-change: transform;
           z-index: 100;
+          pointer-events: auto;
         }
 
         .face {
@@ -245,9 +217,8 @@ export default function Navbar() {
         }
         .face-b {
           transform: rotateX(90deg) translateZ(40px);
-          background: #ffffff;
-          border: 1px solid rgba(0,0,0,0.06);
-          box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+          background: transparent;
+          /* No shadow or border here as it's part of the full screen menu */
         }
 
         /* ── NAV LAYOUT ── */
@@ -300,16 +271,11 @@ export default function Navbar() {
           justify-content: center;
           text-decoration: none;
           background: #ffffff;
-          color: #000000;
+          color: #000000 !important; /* Black text on White bg = Inverts to White text on Black bg */
           padding: 0.6rem 4rem;
-          /* Top pyramid (0 to 60%), Bottom pyramid (60% to 100%) */
           clip-path: polygon(0% 0%, 100% 0%, 85% 60%, 75% 60%, 65% 100%, 35% 100%, 25% 60%, 15% 60%);
           transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
           margin-top: 0;
-        }
-        .contact-btn.light {
-          background: #000000;
-          color: #ffffff;
         }
         .contact-btn:hover {
           transform: scale(1.05);
@@ -321,6 +287,7 @@ export default function Navbar() {
           text-transform: uppercase;
           letter-spacing: 0.2em;
           white-space: nowrap;
+          color: #000000 !important; /* Must be black to invert to white over black background */
         }
 
         /* ── DESKTOP NAV LINKS ── */
@@ -353,13 +320,15 @@ export default function Navbar() {
           position: fixed;
           inset: 0;
           background: #0a0a0a;
-          z-index: 50;
+          z-index: 2000;
           opacity: 0;
+          display: none;
           pointer-events: none;
           transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
           overflow: hidden;
         }
         .menu-overlay.is-open {
+          display: flex;
           opacity: 1;
           pointer-events: auto;
         }
@@ -367,11 +336,13 @@ export default function Navbar() {
         .overlay-inner {
           display: grid;
           grid-template-columns: 1fr 1fr;
+          width: 100%;
           height: 100%;
           padding: 12vh 5vw;
           gap: 4vw;
           max-width: 1400px;
           margin: 0 auto;
+          align-items: center;
         }
 
         /* Left: big links */
@@ -385,87 +356,86 @@ export default function Navbar() {
 
         .overlay-link {
           display: flex;
-          align-items: center;
-          gap: 1.5rem;
+          align-items: flex-end;
+          justify-content: space-between;
           text-decoration: none;
-          color: #fff;
-          padding: 2rem 0;
-          border-bottom: 1px solid #1a1a1a;
-          overflow: hidden;
-          transition: background 0.3s ease;
+          color: #ffffff !important;
+          opacity: 1;
+          padding: 1.5rem 0;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
           position: relative;
         }
-        .overlay-link:hover { padding-left: 1rem; background: #111; }
+        .overlay-link:hover { padding-left: 2rem; background: rgba(255,255,255,0.02); }
 
+        .ol-content {
+          display: flex;
+          align-items: baseline;
+          gap: 2rem;
+        }
         .ol-num {
           font-family: 'Perfect Dark', sans-serif;
-          font-size: 0.65rem;
-          color: #333;
+          font-size: 0.7rem;
+          color: rgba(255,255,255,0.3);
           letter-spacing: 0.1em;
-          flex-shrink: 0;
-          width: 28px;
-        }
-        .ol-divider {
-          width: 1px;
-          height: 24px;
-          background: #222;
-          flex-shrink: 0;
         }
         .ol-label {
           font-family: 'Outfit', sans-serif;
-          font-size: clamp(2rem, 5vw, 4rem);
-          font-weight: 800;
+          font-size: clamp(2.5rem, 6vw, 5rem);
+          font-weight: 900;
           text-transform: uppercase;
-          letter-spacing: -0.02em;
-          flex: 1;
-          line-height: 1;
+          letter-spacing: -0.04em;
+          line-height: 0.9;
         }
+        .ol-sub {
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.8rem;
+          text-transform: uppercase;
+          letter-spacing: 0.2em;
+          color: rgba(255,255,255,0.4);
+          margin-bottom: 0.5rem;
+          transition: color 0.3s ease;
+        }
+        .overlay-link:hover .ol-sub { color: #fff; }
         .ol-arrow {
-          font-size: 1.5rem;
-          color: #333;
+          font-size: 2rem;
+          color: #fff;
           opacity: 0;
-          transform: translateX(-10px);
-          transition: all 0.4s ease;
+          transform: translate(-20px, 20px);
+          transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
         .overlay-link:hover .ol-arrow {
           opacity: 1;
-          transform: translateX(0);
-          color: #fff;
         }
-
-        /* Right: aside info */
         .overlay-aside {
           display: flex;
           flex-direction: column;
-          justify-content: flex-end;
           gap: 3rem;
-          padding-bottom: 2rem;
-          border-left: 1px solid #1a1a1a;
           padding-left: 4vw;
+          border-left: 1px solid rgba(255,255,255,0.05);
         }
         .aside-block {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: 0.5rem;
         }
         .aside-tag {
-          font-family: 'Perfect Dark', sans-serif;
-          font-size: 0.6rem;
-          letter-spacing: 0.25em;
-          color: #444;
-          text-transform: uppercase;
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.65rem;
+          letter-spacing: 0.2em;
+          color: rgba(255,255,255,0.3);
         }
         .aside-desc {
           font-family: 'Outfit', sans-serif;
-          font-size: 1rem;
-          color: #666;
-          line-height: 1.5;
+          font-size: 0.85rem;
+          color: #fff;
+          font-weight: 500;
+          line-height: 1.4;
         }
         .aside-copy {
           font-family: 'Outfit', sans-serif;
-          font-size: 0.7rem;
-          color: #2a2a2a;
-          letter-spacing: 0.05em;
+          font-size: 0.65rem;
+          color: rgba(255,255,255,0.2);
           margin-top: auto;
         }
 
@@ -473,18 +443,29 @@ export default function Navbar() {
         @media (max-width: 1024px) {
           .nav-container { left: 1.5rem; right: 1.5rem; }
           .contact-btn { padding: 0.6rem 2rem; }
-          .overlay-inner { grid-template-columns: 1fr; }
-          .overlay-aside { display: none; }
+          .overlay-inner { grid-template-columns: 1fr; padding-top: 15vh; }
         }
         @media (max-width: 768px) {
-          .desktop-only { display: none; }
-          .nav-container { left: 1rem; right: 1rem; top: 5px; }
-          .contact-btn { padding: 0.5rem 1.5rem; }
+          .desktop-only { display: none !important; }
+          .nav-container { left: 1rem; right: 1rem; top: 10px; }
+          .contact-btn { display: none; }
           .menu-trigger .tiny-label { display: none; }
-          .ol-label { font-size: clamp(1.8rem, 8vw, 3rem); }
-          .overlay-inner { padding: 15vh 6vw; }
+          .ol-label { font-size: 3rem; }
+          .ol-content { gap: 1rem; }
+          .ol-sub { display: none; }
+          .overlay-inner { padding: 12vh 6vw; }
+          .ol-label { font-size: 2.2rem; }
+          .overlay-links { border: none; align-items: center; text-align: center; }
+          .overlay-link { justify-content: center; width: 100%; border: none; padding: 1rem 0; }
+          .ol-content { flex-direction: column; gap: 0.5rem; align-items: center; }
+          .ol-num { margin-bottom: 0.5rem; }
+          .overlay-link:hover { padding-left: 0; background: none; }
+          .face { height: 70px; }
+          .perspective-wrapper { height: 70px; }
+          .face-a, .face-b { transform: translateZ(35px); }
+          .face-b { transform: rotateX(90deg) translateZ(35px); }
         }
       `}</style>
-    </nav>
+    </>
   );
 }

@@ -4,168 +4,10 @@ import React, { useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { gsap } from 'gsap';
 import Link from 'next/link';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import Navbar from '@/components/core/Navbar';
+import Footer from '@/components/core/Footer';
+import { projectsData } from '@/data/projects';
 
-interface ProjectData {
-  title: string;
-  category: string;
-  description: string;
-  longDesc: string;
-  challenge: string;
-  solution: string;
-  stack: string[];
-  link: string;
-  image: string;
-  year: string;
-  role: string;
-}
-
-const projectsData: Record<string, ProjectData> = {
-  barika: {
-    title: 'ONG Barika Bénin',
-    category: 'Social / Culture',
-    year: '2024',
-    role: 'Full Stack Developer',
-    description: 'Plateforme dédiée à l\'autonomisation des femmes par les AGR et à la promotion de la culture Waama à Natitingou.',
-    longDesc: 'Barika Bénin est une ONG ancrée dans les réalités béninoises, œuvrant pour l\'autonomisation économique des femmes à travers les Activités Génératrices de Revenus (AGR) et la valorisation du patrimoine culturel Waama.',
-    challenge: 'Concevoir une interface qui soit à la fois moderne pour les donateurs internationaux et accessible à un public local peu familier avec le digital, tout en reflétant l\'identité culturelle de l\'organisation.',
-    solution: 'Architecture Next.js avec animations Framer Motion fluides, palette de couleurs inspirée des tissus Waama, et contenu bilingue. Optimisation des performances pour les connexions mobiles faibles.',
-    stack: ['Next.js 15', 'Tailwind CSS', 'Framer Motion', 'Lenis', 'Vercel'],
-    link: 'https://barika-benin.vercel.app/',
-    image: '/projects/barika.png',
-  },
-  roajelf: {
-    title: 'Roajelf Bénin',
-    category: 'Leadership / Féminisme',
-    year: '2024',
-    role: 'Lead Developer',
-    description: 'Réseau Ouest Africain des Jeunes Femmes Leaders, mobilisant la jeunesse féminine pour le développement du Bénin.',
-    longDesc: 'ROAJELF est un réseau panafricain structuré autour de la formation au leadership féminin, de l\'engagement civique et du développement durable. La plateforme sert de hub central pour les membres, événements et ressources.',
-    challenge: 'Fédérer une communauté dispersée géographiquement autour d\'une plateforme unique qui serve à la fois de réseau social interne et de vitrine internationale pour l\'organisation.',
-    solution: 'Développement d\'un système de gestion de contenu léger avec intégration d\'un espace membres sécurisé, d\'un agenda d\'événements et d\'une newsletter automatisée via des webhooks.',
-    stack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Vercel'],
-    link: 'https://roajelf.vercel.app/',
-    image: '/projects/requestflow.png',
-  },
-  'france-recours': {
-    title: 'France Recours',
-    category: 'Expertise / Mobilité',
-    year: '2024',
-    role: 'Full Stack Developer',
-    description: 'Solution digitale facilitant les démarches de visas et l\'assistance administrative pour la France.',
-    longDesc: 'France Recours digitalise l\'accompagnement des demandes de visa et de régularisation administrative, un secteur traditionnellement opaque et chronophage. La plateforme guide les usagers pas à pas dans leurs démarches.',
-    challenge: 'Simplifier un processus administratif complexe pour des utilisateurs souvent en situation de stress, tout en assurant la confidentialité des données personnelles sensibles.',
-    solution: 'Interface conversationnelle étape par étape avec validation en temps réel, système de suivi de dossier, et intégration d\'un chatbot IA pour les questions fréquentes. Conformité RGPD stricte.',
-    stack: ['Next.js', 'Node.js', 'OpenAI API', 'Stripe', 'Vercel'],
-    link: 'https://france-recours.vercel.app/',
-    image: '/projects/uptown.png',
-  },
-  'neon-mind': {
-    title: 'Neon Mind AI',
-    category: 'AI / Content Automation',
-    year: '2025',
-    role: 'AI Engineer & Developer',
-    description: 'Ecosystème de blogging autonome propulsé par l\'IA, gérant la création et la publication sans intervention humaine.',
-    longDesc: 'Neon Mind est un système d\'IA autonome qui génère, édite, optimise SEO et publie des articles de blog sans intervention humaine. Il combine des modèles de langage, des agents de recherche et un pipeline de publication automatisé.',
-    challenge: 'Créer un contenu qui soit à la fois de haute qualité, factuellement fiable et optimisé pour le référencement naturel, tout en maintenant un ton cohérent et une voix de marque distinctive.',
-    solution: 'Architecture multi-agents avec LangChain : un agent de recherche web, un rédacteur, un éditeur SEO et un publisher. Pipeline orchestré via n8n avec monitoring des performances de contenu.',
-    stack: ['Python', 'LangChain', 'OpenAI GPT-4o', 'n8n', 'Next.js', 'Railway'],
-    link: 'https://neon-mind-nu.vercel.app/',
-    image: '/projects/aimusic.png',
-  },
-  'kola-son': {
-    title: 'Kola Son',
-    category: 'Audio / Digital Design',
-    year: '2025',
-    role: 'Creative Developer',
-    description: 'Interface immersive pour la diffusion et la valorisation de productions audio et musicales.',
-    longDesc: 'Kola Son est une vitrine numérique conçue pour un producteur musical indépendant. L\'expérience est centrée sur l\'audio : chaque élément de l\'interface réagit à la musique en temps réel, créant une expérience synesthésique.',
-    challenge: 'Créer une expérience utilisateur où la musique est l\'élément central de l\'interface, et non simplement une fonctionnalité secondaire, sans dégrader les performances de lecture audio.',
-    solution: 'Utilisation de l\'API Web Audio pour analyser les fréquences en temps réel et piloter des animations Three.js. Interface minimaliste sombre qui disparaît pour laisser place à la musique.',
-    stack: ['Next.js', 'Three.js', 'Web Audio API', 'GSAP', 'Framer Motion'],
-    link: 'https://kola-son.vercel.app/',
-    image: '/projects/aimusic.png',
-  },
-  'ai-interview': {
-    title: 'AI Interview Agent',
-    category: 'AI / HR Tech',
-    year: '2025',
-    role: 'AI Engineer & Lead Developer',
-    description: 'Assistant intelligent en temps réel pour l\'optimisation des performances lors d\'entretiens en ligne.',
-    longDesc: 'AI Interview Agent est un copilote d\'entretien professionnel qui analyse les questions posées en temps réel, suggère des réponses structurées STAR, évalue la pertinence du discours et fournit un feedback post-entretien détaillé.',
-    challenge: 'Analyser et répondre aux questions orales avec une latence inférieure à 1,5 secondes tout en maintenant un contexte conversationnel riche et des suggestions contextuellement précises.',
-    solution: 'Pipeline de transcription temps réel avec Whisper, analyse contextuelle via GPT-4o avec mémoire de conversation, et interface discrète conçue pour ne pas distraire pendant l\'entretien.',
-    stack: ['Python', 'OpenAI Whisper', 'GPT-4o', 'FastAPI', 'React', 'WebSockets'],
-    link: 'https://ai-interview-mu-red.vercel.app/',
-    image: '/projects/comptaia.png',
-  },
-  'ets-pro': {
-    title: 'ETS Pro CRM',
-    category: 'Enterprise / Gestion',
-    year: '2024',
-    role: 'Full Stack Developer',
-    description: 'Système de gestion multi-structures unifié pour le pilotage centralisé d\'activités commerciales.',
-    longDesc: 'ETS Pro est un CRM sur mesure conçu pour un groupe d\'entreprises béninoises gérant plusieurs entités commerciales. Il centralise la gestion des clients, des stocks, des factures et des rapports financiers.',
-    challenge: 'Unifier des processus métiers disparates hérités de plusieurs outils (Excel, Google Sheets, papier) dans un seul système cohérent, adopté rapidement par des équipes peu téchniques.',
-    solution: 'Interface épurée avec des workflows guidés, tableaux de bord KPI en temps réel, système de rôles granulaires et génération automatique de rapports PDF. Formation intégrée in-app.',
-    stack: ['Next.js', 'Node.js', 'Prisma', 'PostgreSQL', 'Chart.js', 'Railway'],
-    link: 'https://ets-pro.vercel.app/',
-    image: '/projects/comptaia.png',
-  },
-  lbm: {
-    title: 'LBM Drive',
-    category: 'Transport / Location',
-    year: '2024',
-    role: 'Full Stack Developer',
-    description: 'Application de réservation et de gestion de flotte automobile pour la société LBM.',
-    longDesc: 'LBM Drive est une solution complète de location de véhicules pour une société de transport au Bénin. Elle couvre la réservation en ligne, la gestion de flotte, le suivi des locations en cours et la facturation automatisée.',
-    challenge: 'Adapter les patterns UX standards de location de voitures (Airbnb for cars) au contexte béninois, avec des contraintes de connectivité et des modes de paiement locaux.',
-    solution: 'Interface progressive web app (PWA) fonctionnant en mode dégradé hors ligne, intégration de Mobile Money, et système de caution digitale. Tableau de bord opérateur pour la gestion de flotte.',
-    stack: ['Next.js', 'TypeScript', 'Supabase', 'Stripe', 'PWA', 'Vercel'],
-    link: 'https://lbm-drive.vercel.app/',
-    image: '/projects/garage.png',
-  },
-  any: {
-    title: 'Any Restaurant',
-    category: 'FoodTech / Delivery',
-    year: '2024',
-    role: 'Full Stack Developer',
-    description: 'Plateforme de commande en ligne intuitive conçue pour la transformation digitale des restaurateurs.',
-    longDesc: 'Any Restaurant est une solution clé-en-main de commande en ligne pour les restaurants locaux. Elle inclut une interface client mémorielle, un tableau de bord restaurateur et un système de fidélité automatisé.',
-    challenge: 'Créer un produit suffisamment flexible pour s\'adapter à des dizaines de restaurants différents (menu, identité visuelle, zone de livraison), tout en maintenant une codebase unique et maintenable.',
-    solution: 'Architecture multi-tenant avec thèmes dynamiques par restaurant, éditeur de menu drag-and-drop, et module analytics pour aider les restaurateurs à identifier leurs plats les plus populaires.',
-    stack: ['Next.js', 'Node.js', 'MongoDB', 'Stripe', 'Socket.io', 'Vercel'],
-    link: 'https://any-teal.vercel.app/',
-    image: '/projects/uptown.png',
-  },
-  'garde-meuble': {
-    title: 'Garde Meuble',
-    category: 'Logistics / SaaS',
-    year: '2024',
-    role: 'Full Stack Developer',
-    description: 'Optimisation de la gestion des espaces de stockage et du self-storage.',
-    longDesc: 'Garde Meuble digitalise la gestion d\'un entrepôt de self-storage : réservation d\'espaces, suivi des occupations, facturation récurrente et accès client sécurisé. Premier acteur numérique de ce secteur au Bénin.',
-    challenge: 'Digitaliser un secteur entièrement analogique, convaincre des propriétaires traditionnels d\'adopter un outil numérique, et gérer des contrats de location à durée variable avec facturation pro-rata.',
-    solution: 'Dashboard opérateur avec visualisation graphique des espaces disponibles, contrats digitaux avec signature électronique, rappels automatiques et facturation récurrente programmée.',
-    stack: ['Next.js', 'Prisma', 'PostgreSQL', 'Stripe', 'Node.js', 'Railway'],
-    link: 'https://garde-meuble.vercel.app/',
-    image: '/projects/garage.png',
-  },
-  'k-ta': {
-    title: 'K-ta EdTech',
-    category: 'Éducation / Outils',
-    year: '2024',
-    role: 'Full Stack Developer',
-    description: 'Solution d\'accompagnement académique pour la structuration et la présentation d\'exposés.',
-    longDesc: 'K-ta est un assistant éducatif pour lycéens et étudiants béninois. Il guide la structuration d\'exposés académiques avec des templates par matière, des outils de recherche intégrés et un mode présentation.',
-    challenge: 'Créer un outil qui soit véritablement utile au quotidien pour des élèves aux ressources limitées, sans dépendre d\'une connexion internet permanente, avec une interface ultra-simple.',
-    solution: 'Application PWA fonctionnant offline avec synchronisation différée, bibliothèque de templates académiques validés par des enseignants, et export PDF/PowerPoint des présentations finalisées.',
-    stack: ['Next.js', 'TypeScript', 'IndexedDB', 'PWA', 'OpenAI API', 'Vercel'],
-    link: 'https://k-ta.vercel.app/',
-    image: '/projects/requestflow.png',
-  }
-};
 
 export default function ProjectDetailContent() {
   const params = useParams();
@@ -180,7 +22,7 @@ export default function ProjectDetailContent() {
     challenge: 'Répondre aux besoins spécifiques du client tout en respectant les contraintes techniques et budgétaires.',
     solution: 'Architecture moderne, code propre et livraison dans les délais.',
     stack: ['React', 'TypeScript', 'Node.js'],
-    link: '#',
+    externalLink: '#',
     image: '',
   };
 
@@ -208,7 +50,7 @@ export default function ProjectDetailContent() {
       <section className="pd-hero">
         <div className="pd-container">
           <div className="pd-breadcrumb pd-reveal">
-            <Link href="/#work" className="breadcrumb-link">← Portfolio</Link>
+            <Link href="/work" className="breadcrumb-link">← Portfolio</Link>
             <span className="breadcrumb-sep">/</span>
             <span className="breadcrumb-current">{project.title}</span>
           </div>
@@ -231,7 +73,7 @@ export default function ProjectDetailContent() {
                 </div>
                 <div className="pd-meta-item">
                   <span className="meta-label">LIEN LIVE</span>
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="meta-link">
+                  <a href={project.externalLink} target="_blank" rel="noopener noreferrer" className="meta-link">
                     VISITER ↗
                   </a>
                 </div>
@@ -248,7 +90,7 @@ export default function ProjectDetailContent() {
             <div className="pd-mockup">
               <div className="mockup-browser-bar">
                 <span className="dot r" /><span className="dot y" /><span className="dot g" />
-                <span className="mockup-url">{project.link.replace('https://', '')}</span>
+                <span className="mockup-url">{project.externalLink.replace('https://', '')}</span>
               </div>
               <img src={project.image} alt={`Aperçu de ${project.title}`} className="mockup-img" />
             </div>
@@ -279,7 +121,7 @@ export default function ProjectDetailContent() {
             <div className="pd-content-block pd-reveal">
               <h2 className="content-label">04 — STACK TECHNIQUE</h2>
               <div className="stack-grid">
-                {project.stack.map((tech) => (
+                {project.stack?.map((tech) => (
                   <span key={tech} className="stack-tag">{tech}</span>
                 ))}
               </div>
@@ -288,11 +130,11 @@ export default function ProjectDetailContent() {
 
           {/* CTA */}
           <div className="pd-cta pd-reveal">
-            <a href={project.link} target="_blank" rel="noopener noreferrer" className="cta-btn">
+            <a href={project.externalLink} target="_blank" rel="noopener noreferrer" className="cta-btn">
               <span>VOIR LE PROJET LIVE</span>
               <span className="cta-arrow">↗</span>
             </a>
-            <Link href="/#work" className="back-btn">
+            <Link href="/work" className="back-btn">
               ← Retour au portfolio
             </Link>
           </div>
@@ -545,7 +387,11 @@ export default function ProjectDetailContent() {
         }
         @media (max-width: 600px) {
           .pd-hero { padding: 18vh 0 6vh; }
-          .pd-title { font-size: 2.2rem; }
+          .pd-title { font-size: 2rem; }
+          .pd-meta-block { padding: 1.5rem; gap: 1.5rem; }
+          .pd-meta-item { border-bottom: 1px solid #111; padding-bottom: 1rem; }
+          .pd-meta-item:last-child { border: none; }
+          .pd-breadcrumb { margin-bottom: 2rem; }
         }
       `}</style>
     </main>

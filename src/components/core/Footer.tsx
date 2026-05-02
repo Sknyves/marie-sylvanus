@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -19,29 +20,35 @@ export default function Footer() {
           <div className="footer-nav">
             <div className="footer-nav-col">
               <span className="nav-label">NAVIGATION</span>
-              <a href="#about" className="nav-link">À PROPOS</a>
-              <a href="#work" className="nav-link">PROJETS</a>
-              <a href="#contact" className="nav-link">CONTACT</a>
+              <Link href="/about" className="nav-link">À PROPOS</Link>
+              <Link href="/work" className="nav-link">PROJETS</Link>
+              <Link href="/#contact" className="nav-link">CONTACT</Link>
             </div>
             <div className="footer-nav-col">
               <span className="nav-label">SOCIAL</span>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="nav-link">
+              <a href="https://www.linkedin.com/in/marie-sylvanus-734b432a9/" target="_blank" rel="noopener noreferrer" className="nav-link">
                 <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
                 </svg>
                 LINKEDIN
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="nav-link">
+              <a href="mailto:mariesyl321@gmail.com" target="_blank" rel="noopener noreferrer" className="nav-link">
+                <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+                EMAIL
+              </a>
+              <a href="https://github.com/sknyves" target="_blank" rel="noopener noreferrer" className="nav-link">
                 <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
                 </svg>
                 GITHUB
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="nav-link">
-                <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+              <a href="https://wa.me/+22943655721" target="_blank" rel="noopener noreferrer" className="nav-link">
+                <svg className="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.233-1.373a9.945 9.945 0 0 0 4.779 1.214h.004c5.505 0 9.988-4.478 9.989-9.984 0-2.669-1.037-5.176-2.922-7.062A9.925 9.925 0 0 0 12.012 2zm0 18.33h-.003a8.307 8.307 0 0 1-4.232-1.157l-.304-.18-3.145.825.84-3.067-.197-.314a8.3 8.3 0 0 1-1.272-4.453c.001-4.577 3.725-8.3 8.304-8.3 2.217 0 4.302.863 5.864 2.426a8.243 8.243 0 0 1 2.43 5.877c-.001 4.577-3.725 8.301-8.304 8.301zm4.55-6.216c-.25-.124-1.477-.73-1.704-.811-.227-.082-.392-.124-.556.124-.165.247-.638.811-.782.977-.144.166-.288.187-.538.063-.25-.125-1.054-.388-2.008-1.239-.742-.662-1.243-1.48-1.388-1.73-.144-.25-.015-.385.11-.51.111-.11.25-.291.375-.437.125-.145.166-.25.25-.417.083-.166.042-.312-.02-.437-.063-.125-.557-1.343-.763-1.841-.2-.487-.404-.421-.556-.429h-.475c-.165 0-.433.062-.659.312-.227.25-.865.846-.865 2.062 0 1.216.885 2.394 1.01 2.56.124.166 1.74 2.656 4.215 3.726.589.255 1.048.407 1.407.521.592.188 1.13.161 1.556.097.475-.07 1.477-.604 1.684-1.187.206-.584.206-1.084.144-1.188-.062-.104-.227-.166-.477-.29z" />
                 </svg>
-                TWITTER
+                WHATSAPP
               </a>
             </div>
           </div>
@@ -120,19 +127,27 @@ export default function Footer() {
         .nav-link {
           font-family: 'Outfit', sans-serif;
           font-size: 0.9rem;
-          color: #fff;
+          font-weight: 700;
+          color: #ffffff !important;
           text-decoration: none;
-          opacity: 0.6;
-          transition: all 0.3s ease;
-          letter-spacing: 0.05em;
+          opacity: 0.5;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          letter-spacing: 0.1em;
           display: flex;
           align-items: center;
           gap: 1rem;
+          padding: 0.2rem 0;
+        }
+        .nav-link:hover {
+          opacity: 1;
+          color: #ffffff !important;
+          padding-left: 0.5rem;
         }
         .nav-icon {
-          width: 18px;
-          height: 18px;
-          opacity: 0.6;
+          width: 16px;
+          height: 16px;
+          opacity: 0.5;
+          transition: transform 0.4s ease;
         }
         .nav-link:hover .nav-icon {
           opacity: 1;
@@ -205,9 +220,15 @@ export default function Footer() {
         }
 
         @media (max-width: 900px) {
-          .footer-top { flex-direction: column; gap: 6rem; }
-          .footer-nav { gap: 5rem; }
-          .footer-bottom { flex-direction: column-reverse; gap: 4rem; text-align: center; }
+          .footer-top { flex-direction: column; gap: 4rem; }
+          .footer-nav { gap: 3rem; flex-wrap: wrap; }
+          .footer-bottom { flex-direction: column-reverse; gap: 3rem; text-align: center; }
+          .footer-legal { flex-direction: column; gap: 1rem; }
+          .separator { display: none; }
+        }
+        @media (max-width: 480px) {
+          .footer-logo { font-size: 1.2rem; }
+          .footer-nav { gap: 2rem; }
         }
       `}</style>
     </footer>
