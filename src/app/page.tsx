@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, use, useState } from 'react';
 import { gsap } from 'gsap';
+import Image from 'next/image';
 import ProjectGrid from '@/components/sections/ProjectGrid';
 import Link from 'next/link';
 import ContactSection from '@/components/sections/ContactSection';
@@ -237,7 +238,15 @@ export default function Home(props: any) {
             </div>
 
             <div ref={portraitRef} className="portrait-container">
-              <img src="/portrait.png" alt="Marie Sylvanus" className="hero-portrait" />
+              <Image
+                src="/portrait.png"
+                alt="KINKPON Marie Sylvanus Mahougnon — Développeur Full Stack et Consultant en Intelligence Artificielle basé à Cotonou, Bénin"
+                fill
+                sizes="(max-width: 768px) 95vw, (max-width: 1024px) 65vh, 80vh"
+                className="hero-portrait"
+                priority
+                quality={85}
+              />
             </div>
             <div className="title-wrapper">
               <h1 ref={titleRef} className="main-title">
