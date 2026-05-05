@@ -1,7 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/core/SmoothScroll";
 import Preloader from "@/components/core/Preloader";
+import PWARegistry from "@/components/core/PWARegistry";
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://marie-sylvanus.vercel.app"),
@@ -56,6 +61,12 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Marie S.",
+  },
 };
 
 export default function RootLayout({
@@ -90,7 +101,8 @@ export default function RootLayout({
       },
       "sameAs": [
         "https://www.linkedin.com/in/marie-sylvanus-734b432a9/",
-        "https://github.com/sknyves"
+        "https://github.com/sknyves",
+        "https://www.facebook.com/"
       ],
       "knowsAbout": [
         "Développement Web",
@@ -133,6 +145,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <PWARegistry />
         <Preloader />
         <script
           type="application/ld+json"

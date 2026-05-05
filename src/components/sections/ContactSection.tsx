@@ -103,6 +103,16 @@ export default function ContactSection() {
         </div>
 
         <div className="contact-links">
+          <a href="https://maps.google.com/?q=Cotonou,+Bénin" target="_blank" rel="noopener noreferrer" className="contact-link contact-reveal">
+            <span className="link-bg"></span>
+            <div className="link-content">
+              <svg className="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span className="link-text">Cotonou, Bénin</span>
+            </div>
+            <span className="link-arrow">↗</span>
+          </a>
           <a href="mailto:mariesyl321@gmail.com" className="contact-link contact-reveal">
             <span className="link-bg"></span>
             <div className="link-content">
@@ -120,6 +130,16 @@ export default function ContactSection() {
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
               </svg>
               <span className="link-text">LinkedIn</span>
+            </div>
+            <span className="link-arrow">↗</span>
+          </a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="contact-link contact-reveal">
+            <span className="link-bg"></span>
+            <div className="link-content">
+              <svg className="link-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+              </svg>
+              <span className="link-text">Facebook</span>
             </div>
             <span className="link-arrow">↗</span>
           </a>

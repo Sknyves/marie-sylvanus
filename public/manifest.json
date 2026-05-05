@@ -1,0 +1,23 @@
+{
+  "name": "Marie Sylvanus Portfolio",
+  "short_name": "Marie S.",
+  "description": "Portfolio de KINKPON Marie Sylvanus Mahougnon — Développeur Full Stack et Consultant en IA.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
