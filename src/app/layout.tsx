@@ -1,38 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import SmoothScroll from "@/components/core/SmoothScroll";
 import Preloader from "@/components/core/Preloader";
 import PWARegistry from "@/components/core/PWARegistry";
-import Script from "next/script";
 
-export default function RootLayout({
-  children,
-  }: {
-    children: React.ReactNode;
-    }) {
-      return (
-          <html lang="fr">
-                <body>
-                        {children}
-
-                                <Script
-                                          src="https://www.googletagmanager.com/gtag/js?id=G-4E8Z0DEGSB"
-                                                    strategy="afterInteractive"
-                                                            />
-
-                                                                    <Script id="google-analytics" strategy="afterInteractive">
-                                                                              {`
-                                                                                          window.dataLayer = window.dataLayer || [];
-                                                                                                      function gtag(){dataLayer.push(arguments);}
-                                                                                                                  gtag('js', new Date());
-
-                                                                                                                              gtag('config', 'G-4E8Z0DEGSB');
-                                                                                                                                        `}
-                                                                                                                                                </Script>
-                                                                                                                                                      </body>
-                                                                                                                                                          </html>
-                                                                                                                                                            );
-                                                                                                                                                            }
 export const viewport: Viewport = {
   themeColor: "#000000",
 };
@@ -138,7 +110,7 @@ export default function RootLayout({
       "sameAs": [
         "https://www.linkedin.com/in/marie-sylvanus-734b432a9/",
         "https://github.com/sknyves",
-        "https://www.facebook.com/"
+        "https://www.facebook.com/share/1BPvNbiCtm/"
       ],
       "knowsAbout": [
         "Développement Web",
@@ -183,11 +155,28 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <PWARegistry />
         <Preloader />
+        
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-4E8Z0DEGSB"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-4E8Z0DEGSB');
+          `}
+        </Script>
+
+        {/* Données structurées JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           key="structured-data"
         />
+        
         <SmoothScroll>
           <div className="noise-overlay" />
           {children}
