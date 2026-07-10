@@ -3,7 +3,36 @@ import "./globals.css";
 import SmoothScroll from "@/components/core/SmoothScroll";
 import Preloader from "@/components/core/Preloader";
 import PWARegistry from "@/components/core/PWARegistry";
+import Script from "next/script";
 
+export default function RootLayout({
+  children,
+  }: {
+    children: React.ReactNode;
+    }) {
+      return (
+          <html lang="fr">
+                <body>
+                        {children}
+
+                                <Script
+                                          src="https://www.googletagmanager.com/gtag/js?id=G-4E8Z0DEGSB"
+                                                    strategy="afterInteractive"
+                                                            />
+
+                                                                    <Script id="google-analytics" strategy="afterInteractive">
+                                                                              {`
+                                                                                          window.dataLayer = window.dataLayer || [];
+                                                                                                      function gtag(){dataLayer.push(arguments);}
+                                                                                                                  gtag('js', new Date());
+
+                                                                                                                              gtag('config', 'G-4E8Z0DEGSB');
+                                                                                                                                        `}
+                                                                                                                                                </Script>
+                                                                                                                                                      </body>
+                                                                                                                                                          </html>
+                                                                                                                                                            );
+                                                                                                                                                            }
 export const viewport: Viewport = {
   themeColor: "#000000",
 };
@@ -25,7 +54,14 @@ export const metadata: Metadata = {
     "AI Consultant Bénin",
     "Creative Developer Afrique",
     "Next.js Bénin",
-    "Intelligence Artificielle Cotonou"
+    "Intelligence Artificielle Cotonou",
+    "Développeur",
+    "Developpeur",
+    "Développeur web",
+    "Développeur Bénin",
+    "Meilleur développeur",
+    "Meilleur développeur Bénin",
+    "Dev Bénin"
   ],
   authors: [{ name: "KINKPON Marie Sylvanus Mahougnon", url: "https://marie-sylvanus.vercel.app" }],
   creator: "KINKPON Marie Sylvanus Mahougnon",
