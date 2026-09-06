@@ -1,29 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=Bodoni+Moda:wght@400;900&family=Cormorant:wght@700&family=League+Gothic&family=Medula+One&family=Syncopate:wght@400;700&family=Michroma&display=swap');
-
-@font-face {
-  font-family: 'Perfect Dark';
-  src: url('/fonts/pdark.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --bg-color: #000000;
-  --text-color: #ffffff;
-  --accent-color: #ffffff;
-  --accent-glow: rgba(255, 255, 255, 0.2);
-  --secondary-color: #888888;
-  --glass-bg: rgba(255, 255, 255, 0.02);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --font-main: 'Outfit', sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  /* Brand Palette */
+  --bg-primary: #FAF8F5;       /* Ivoire / Crème principal */
+  --bg-secondary: #F3EFEA;     /* Crème légèrement plus foncé pour zones de contraste */
+  --bg-card: #FFFFFF;          /* Cartes blanches nettes */
+  --bg-card-hover: #FCFAF7;
+  
+  --color-navy: #091E3A;       /* Bleu nuit dominant pour titres et textes forts */
+  --color-navy-dark: #051329;  /* Bleu nuit très profond pour footers/sections d'accent */
+  --color-navy-light: #1E3A5F;
+  
+  --color-turquoise: #00A896;  /* Turquoise accent technologique & IA */
+  --color-turquoise-light: #E6F7F5;
+  --color-turquoise-glow: rgba(0, 168, 150, 0.25);
+  
+  --color-orange: #FF6B35;     /* Orange doux chaleureux pour attirer l'attention & CTA */
+  --color-orange-light: #FFF2EB;
+  --color-orange-hover: #F2571D;
+  --color-orange-glow: rgba(255, 107, 53, 0.25);
+
+  --text-main: #091E3A;
+  --text-muted: #54667D;
+  --text-subtle: #8798AD;
+  
+  --border-color: #EAE4DA;
+  --border-focus: #00A896;
+  
+  --shadow-sm: 0 2px 8px rgba(9, 30, 58, 0.04);
+  --shadow-md: 0 8px 24px rgba(9, 30, 58, 0.06);
+  --shadow-lg: 0 16px 40px rgba(9, 30, 58, 0.08);
+  --shadow-hover: 0 20px 50px rgba(9, 30, 58, 0.12);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Outfit', sans-serif;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 a {
@@ -35,75 +68,103 @@ a:visited {
   color: inherit;
 }
 
-html.lenis {
-  height: auto;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-navy);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
+/* Rounded SaaS Cards */
+.brand-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
   overflow: hidden;
 }
 
-html, body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: var(--font-main);
-  overflow-x: hidden;
-  position: relative;
-  width: 100%;
-  -webkit-font-smoothing: antialiased;
+.brand-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(0, 168, 150, 0.3);
 }
 
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  pointer-events: none;
+/* Badge Pills */
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-section {
-  min-height: 100vh;
-  padding: 8rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.brand-pill-orange {
+  background: var(--color-orange-light);
+  color: var(--color-orange);
+  border: 1px solid rgba(255, 107, 53, 0.2);
 }
 
-h1, h2, h3 {
+.brand-pill-turquoise {
+  background: var(--color-turquoise-light);
+  color: var(--color-turquoise);
+  border: 1px solid rgba(0, 168, 150, 0.2);
+}
+
+.brand-pill-navy {
+  background: var(--color-navy);
+  color: #ffffff;
+}
+
+/* Signature Component Styling */
+.brand-signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--color-navy);
+}
+
+.brand-signature .sig-name {
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
 }
 
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: 1px; /* Sharp modern edges */
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+.brand-signature .sig-tagline {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-turquoise);
+  text-transform: uppercase;
 }
 
-.glass:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-
-@media (max-width: 768px) {
-  section {
-    padding: 4rem 1rem;
-  }
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
 }
 
+::-webkit-scrollbar-thumb {
+  background: #D8D0C5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-turquoise);
+}
+
+/* Smooth subtle noise overlay for texture */
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -112,7 +173,6 @@ h1, h2, h3 {
   height: 100%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
-

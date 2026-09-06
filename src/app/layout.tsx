@@ -6,19 +6,26 @@ import Preloader from "@/components/core/Preloader";
 import PWARegistry from "@/components/core/PWARegistry";
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#FAF8F5",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://marie-sylvanus.vercel.app"),
   title: {
-    default: "Marie Sylvanus | Creative Developer & AI Consultant",
-    template: "%s | Marie Sylvanus"
+    default: "Marie Sylvanus KINKPON | Automatisation, IA & Solutions Digitales",
+    template: "%s | Marie Sylvanus KINKPON"
   },
-  description: "Portfolio de KINKPON Marie Sylvanus Mahougnon — Développeur Full Stack et Consultant en IA basé à Cotonou, Bénin. Écosystèmes numériques innovants et performants pour l'Afrique et le monde.",
+  description: "Consultante en automatisation, intelligence artificielle et solutions digitales. J'aide les entreprises et cabinets à automatiser leurs processus pour révéler leur potentiel stratégique et libérer du temps humain.",
   keywords: [
-    "KINKPON Marie Sylvanus Mahougnon",
-    "Marie Sylvanus",
+    "Marie Sylvanus KINKPON",
+    "Consultante Automatisation IA",
+    "Automatisation de processus",
+    "Solutions Digitales",
+    "Consultant IA Bénin",
+    "Intelligence Artificielle Cotonou",
+    "n8n Make Automatisation",
+    "Next.js Solutions",
+    "Développement SaaS IA",
     "Marie Sylvanus développeur",
     "Marie Sylvanus Bénin",
     "Marie Sylvanus IA",
@@ -26,7 +33,6 @@ export const metadata: Metadata = {
     "AI Consultant Bénin",
     "Creative Developer Afrique",
     "Next.js Bénin",
-    "Intelligence Artificielle Cotonou",
     "Développeur",
     "Developpeur",
     "Développeur web",
@@ -35,13 +41,13 @@ export const metadata: Metadata = {
     "Meilleur développeur Bénin",
     "Dev Bénin"
   ],
-  authors: [{ name: "KINKPON Marie Sylvanus Mahougnon", url: "https://marie-sylvanus.vercel.app" }],
-  creator: "KINKPON Marie Sylvanus Mahougnon",
+  authors: [{ name: "Marie Sylvanus KINKPON", url: "https://marie-sylvanus.vercel.app" }],
+  creator: "Marie Sylvanus KINKPON",
   openGraph: {
-    title: "Marie Sylvanus | Creative Developer & AI Consultant",
-    description: "KINKPON Marie Sylvanus Mahougnon — Expert en IA et Développement Full Stack basé à Cotonou, Bénin.",
+    title: "Marie Sylvanus KINKPON | Automatisation, IA & Solutions Digitales",
+    description: "Humain d'abord. Technologie ensuite. Optimisation de workflows, assistants IA et solutions digitales performantes.",
     url: "https://marie-sylvanus.vercel.app",
-    siteName: "Marie Sylvanus Portfolio",
+    siteName: "Marie Sylvanus KINKPON Portfolio",
     locale: "fr_FR",
     type: "website",
     images: [
@@ -49,14 +55,14 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "KINKPON Marie Sylvanus Mahougnon — Creative Developer & AI Consultant, Cotonou Bénin",
+        alt: "Marie Sylvanus KINKPON — Automatisation, IA & Solutions Digitales",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marie Sylvanus | Creative Developer & AI Consultant",
-    description: "KINKPON Marie Sylvanus Mahougnon — Digital Craftsman spécialisé en IA & Développement Web, Cotonou.",
+    title: "Marie Sylvanus KINKPON | Automatisation, IA & Solutions Digitales",
+    description: "Humain d'abord. Technologie ensuite. Automatiser l'opérationnel pour révéler le stratégique.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -72,8 +78,8 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Marie S.",
+    statusBarStyle: "default",
+    title: "Marie Sylvanus",
   },
 };
 
@@ -87,17 +93,16 @@ export default function RootLayout({
       "@context": "https://schema.org",
       "@type": "Person",
       "@id": "https://marie-sylvanus.vercel.app/#person",
-      "name": "KINKPON Marie Sylvanus Mahougnon",
-      "alternateName": ["Marie Sylvanus", "Marie Sylvanus Mahougnon"],
+      "name": "Marie Sylvanus KINKPON",
+      "alternateName": ["Marie Sylvanus", "KINKPON Marie Sylvanus Mahougnon"],
       "url": "https://marie-sylvanus.vercel.app",
-      "jobTitle": "Creative Developer & AI Consultant",
-      "description": "Développeur Full Stack et Consultant en Intelligence Artificielle basé à Cotonou, Bénin. Expérience internationale chez Neural Bridge (Londres).",
+      "jobTitle": "Consultante en Automatisation & IA",
+      "description": "Consultante spécialisée en automatisation de processus, intelligence artificielle et solutions logicielles sur mesure.",
       "image": {
         "@type": "ImageObject",
         "url": "https://marie-sylvanus.vercel.app/portrait.png",
         "contentUrl": "https://marie-sylvanus.vercel.app/portrait.png",
-        "name": "KINKPON Marie Sylvanus Mahougnon — Portrait officiel",
-        "description": "Portrait officiel de KINKPON Marie Sylvanus Mahougnon, Développeur Full Stack et Consultant IA basé à Cotonou, Bénin.",
+        "name": "Marie Sylvanus KINKPON",
         "width": 800,
         "height": 1000,
         "representativeOfPage": true
@@ -108,44 +113,24 @@ export default function RootLayout({
         "addressCountry": "BJ"
       },
       "sameAs": [
-        "https://www.linkedin.com/in/marie-sylvanus-734b432a9/",
-        "https://github.com/sknyves",
-        "https://www.facebook.com/share/1BPvNbiCtm/"
+        "https://www.linkedin.com/in/marie-sylvanus-kinkpon/",
+        "https://github.com/sknyves"
       ],
       "knowsAbout": [
-        "Développement Web",
+        "Automatisation de processus",
         "Intelligence Artificielle",
-        "Next.js",
-        "Python",
-        "Full Stack Development",
-        "AI Consulting"
+        "Workflows n8n & Make",
+        "Assistants IA & LLMs",
+        "Solutions Digitales SaaS"
       ]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "ImageObject",
-      "@id": "https://marie-sylvanus.vercel.app/#portrait",
-      "url": "https://marie-sylvanus.vercel.app/portrait.png",
-      "contentUrl": "https://marie-sylvanus.vercel.app/portrait.png",
-      "name": "KINKPON Marie Sylvanus Mahougnon",
-      "description": "Portrait de KINKPON Marie Sylvanus Mahougnon, Creative Developer et AI Consultant basé à Cotonou, Bénin.",
-      "creator": {
-        "@type": "Person",
-        "name": "KINKPON Marie Sylvanus Mahougnon"
-      },
-      "representativeOfPage": true,
-      "license": "https://marie-sylvanus.vercel.app"
     },
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "@id": "https://marie-sylvanus.vercel.app/#website",
       "url": "https://marie-sylvanus.vercel.app",
-      "name": "Marie Sylvanus — Portfolio",
-      "description": "Portfolio de KINKPON Marie Sylvanus Mahougnon, Creative Developer et AI Consultant.",
-      "author": {
-        "@id": "https://marie-sylvanus.vercel.app/#person"
-      },
+      "name": "Marie Sylvanus KINKPON — Automatisation, IA & Solutions",
+      "description": "Portfolio et services de Marie Sylvanus KINKPON, Consultante en automatisation, IA et solutions digitales.",
       "inLanguage": "fr-FR"
     }
   ];

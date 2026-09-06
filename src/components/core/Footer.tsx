@@ -2,6 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
+import BrandWaves from '@/components/ui/BrandWaves';
+import BrandSignature from '@/components/ui/BrandSignature';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -9,232 +11,314 @@ export default function Footer() {
   };
 
   return (
-    <footer className="footer">
+    <footer className="footer-section">
       <div className="footer-container">
-        <div className="footer-top">
-          <div className="footer-brand">
-            <h3 className="footer-logo">K. MARIE SYLVANUS M.</h3>
-            <p className="footer-desc">Digital Craftsman — Designing Futures</p>
+        {/* TOP BANNER: Human first, Technology second */}
+        <div className="footer-hero-banner">
+          <div className="banner-left">
+            <span className="banner-tag">PRINCIPE FONDATEUR</span>
+            <h3 className="banner-quote">« Humain d'abord. Technologie ensuite. »</h3>
+            <p className="banner-desc">
+              Concevoir des automatisations et des systèmes intelligents qui simplifient réellement le quotidien des équipes et décuplent leur valeur.
+            </p>
           </div>
-          
-          <div className="footer-nav">
-            <div className="footer-nav-col">
-              <span className="nav-label">NAVIGATION</span>
-              <Link href="/about" className="nav-link">À PROPOS</Link>
-              <Link href="/work" className="nav-link">PROJETS</Link>
-              <Link href="/#contact" className="nav-link">CONTACT</Link>
-            </div>
-            <div className="footer-nav-col">
-              <span className="nav-label">SOCIAL</span>
-              <a href="https://www.linkedin.com/in/marie-sylvanus-734b432a9/" target="_blank" rel="noopener noreferrer" className="nav-link">
-                <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-                </svg>
-                LINKEDIN
-              </a>
-              <a href="mailto:mariesyl321@gmail.com" target="_blank" rel="noopener noreferrer" className="nav-link">
-                <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-                </svg>
-                EMAIL
-              </a>
-              <a href="https://github.com/sknyves" target="_blank" rel="noopener noreferrer" className="nav-link">
-                <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                </svg>
-                GITHUB
-              </a>
-              <a href="https://wa.me/+22943655721" target="_blank" rel="noopener noreferrer" className="nav-link">
-                <svg className="nav-icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.993L2 22l5.233-1.373a9.945 9.945 0 0 0 4.779 1.214h.004c5.505 0 9.988-4.478 9.989-9.984 0-2.669-1.037-5.176-2.922-7.062A9.925 9.925 0 0 0 12.012 2zm0 18.33h-.003a8.307 8.307 0 0 1-4.232-1.157l-.304-.18-3.145.825.84-3.067-.197-.314a8.3 8.3 0 0 1-1.272-4.453c.001-4.577 3.725-8.3 8.304-8.3 2.217 0 4.302.863 5.864 2.426a8.243 8.243 0 0 1 2.43 5.877c-.001 4.577-3.725 8.301-8.304 8.301zm4.55-6.216c-.25-.124-1.477-.73-1.704-.811-.227-.082-.392-.124-.556.124-.165.247-.638.811-.782.977-.144.166-.288.187-.538.063-.25-.125-1.054-.388-2.008-1.239-.742-.662-1.243-1.48-1.388-1.73-.144-.25-.015-.385.11-.51.111-.11.25-.291.375-.437.125-.145.166-.25.25-.417.083-.166.042-.312-.02-.437-.063-.125-.557-1.343-.763-1.841-.2-.487-.404-.421-.556-.429h-.475c-.165 0-.433.062-.659.312-.227.25-.865.846-.865 2.062 0 1.216.885 2.394 1.01 2.56.124.166 1.74 2.656 4.215 3.726.589.255 1.048.407 1.407.521.592.188 1.13.161 1.556.097.475-.07 1.477-.604 1.684-1.187.206-.584.206-1.084.144-1.188-.062-.104-.227-.166-.477-.29z" />
-                </svg>
-                WHATSAPP
-              </a>
-              <a href="https://www.facebook.com/share/1BPvNbiCtm/" target="_blank" rel="noopener noreferrer" className="nav-link">
-                <svg className="nav-icon" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
-                </svg>
-                FACEBOOK
-              </a>
-            </div>
+          <div className="banner-right">
+            <Link href="/#diagnostic" className="footer-cta-btn">
+              <span>Réserver un Diagnostic Gratuit</span>
+              <span className="btn-arrow">↗</span>
+            </Link>
           </div>
         </div>
 
-        <div className="footer-bottom">
-          <div className="footer-legal">
-            <span className="legal-item">© {new Date().getFullYear()} KINKPON MARIE SYLVANUS MAHOUGNON</span>
-            <span className="separator">/</span>
-            <span className="legal-item">TOUS DROITS RÉSERVÉS</span>
+        {/* MAIN FOOTER GRID */}
+        <div className="footer-grid">
+          {/* Brand Col */}
+          <div className="footer-col brand-col">
+            <BrandSignature theme="dark" />
+            <p className="brand-bio">
+              Consultante en automatisation, IA et solutions digitales. J'accompagne les entreprises, commerces et cabinets dans leur transition vers des processus fluides et rentables.
+            </p>
+          </div>
+
+          {/* Navigation Col */}
+          <div className="footer-col">
+            <h4 className="col-title">NAVIGATION</h4>
+            <ul className="footer-links">
+              <li><Link href="/" className="footer-link">Accueil</Link></li>
+              <li><Link href="/#comparatif" className="footer-link">Avant / Après</Link></li>
+              <li><Link href="/#methode" className="footer-link">La Méthode</Link></li>
+              <li><Link href="/work" className="footer-link">Portfolio de Réalisations</Link></li>
+              <li><Link href="/about" className="footer-link">À Propos & Parcours</Link></li>
+            </ul>
+          </div>
+
+          {/* Expertises Col */}
+          <div className="footer-col">
+            <h4 className="col-title">SOLUTIONS</h4>
+            <ul className="footer-links">
+              <li className="service-item">✨ Diagnostic & Audit de Processus (15 min)</li>
+              <li className="service-item">⚡ Workflows Automatisés (n8n, Make, APIs)</li>
+              <li className="service-item">🤖 Assistants IA & RAG sur Mesure</li>
+              <li className="service-item">💬 Intégration WhatsApp Business & CRM</li>
+              <li className="service-item">🚀 Applications Web & SaaS Modernes</li>
+            </ul>
+          </div>
+
+          {/* Contact & Social Col */}
+          <div className="footer-col">
+            <h4 className="col-title">CONTACT DIRECT</h4>
+            <ul className="footer-links">
+              <li>
+                <a href="https://wa.me/+22943655721" target="_blank" rel="noopener noreferrer" className="footer-link social-link">
+                  <span className="icon-dot-turquoise" /> WhatsApp Direct (+229 43 65 57 21)
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/in/marie-sylvanus-kinkpon/" target="_blank" rel="noopener noreferrer" className="footer-link social-link">
+                  <span className="icon-dot-turquoise" /> LinkedIn
+                </a>
+              </li>
+              <li>
+                <a href="mailto:mariesyl321@gmail.com" className="footer-link social-link">
+                  <span className="icon-dot-turquoise" /> mariesyl321@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/sknyves" target="_blank" rel="noopener noreferrer" className="footer-link social-link">
+                  <span className="icon-dot-turquoise" /> GitHub
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* BOTTOM BAR */}
+        <div className="footer-bottom-bar">
+          <div className="copyright">
+            © {new Date().getFullYear()} <strong>Marie Sylvanus KINKPON</strong>. Tous droits réservés.
           </div>
           
-          <button onClick={scrollToTop} className="back-to-top">
-            <span className="btn-label">RETOUR EN HAUT</span>
-            <div className="btn-icon">
-              <span className="arrow">↑</span>
-            </div>
+          <button onClick={scrollToTop} className="back-top-btn" aria-label="Retour en haut">
+            <span>RETOUR EN HAUT</span>
+            <span className="arrow">↑</span>
           </button>
         </div>
       </div>
 
+      <BrandWaves position="bottom-right" opacity={0.35} />
+
       <style jsx>{`
-        .footer {
+        .footer-section {
           width: 100%;
-          background: #000;
-          color: #fff;
-          padding: 12rem 5vw 4rem;
+          background: #061325;
+          color: #FAF8F5;
+          padding: 6rem 2rem 3rem;
           position: relative;
-          z-index: 70;
+          z-index: 50;
+          overflow: hidden;
         }
-        
+
         .footer-container {
-          max-width: 1400px;
+          max-width: 1300px;
           margin: 0 auto;
+          position: relative;
+          z-index: 5;
         }
 
-        .footer-top {
+        /* Hero Banner inside footer */
+        .footer-hero-banner {
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 20px;
+          padding: 3rem;
           display: flex;
+          align-items: center;
           justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 10rem;
-        }
-        
-        .footer-logo {
-          font-family: 'Perfect Dark', sans-serif;
-          font-size: clamp(1.5rem, 3vw, 2.5rem);
-          letter-spacing: 0.2em;
-          margin-bottom: 1.5rem;
-        }
-        
-        .footer-desc {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.7rem;
-          font-weight: 700;
-          letter-spacing: 0.15em;
-          opacity: 0.4;
+          gap: 2rem;
+          margin-bottom: 5rem;
+          backdrop-filter: blur(10px);
         }
 
-        .footer-nav {
-          display: flex;
-          gap: 10rem;
+        .banner-tag {
+          display: inline-block;
+          font-size: 0.68rem;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          color: #00A896;
+          margin-bottom: 0.75rem;
         }
-        .footer-nav-col {
+
+        .banner-quote {
+          font-family: var(--font-display, 'Outfit', sans-serif);
+          font-size: clamp(1.6rem, 3vw, 2.4rem);
+          font-weight: 800;
+          color: #ffffff;
+          line-height: 1.2;
+          margin-bottom: 0.75rem;
+        }
+
+        .banner-desc {
+          color: #94A3B8;
+          font-size: 0.95rem;
+          max-width: 650px;
+          line-height: 1.6;
+        }
+
+        .footer-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: #FF6B35;
+          color: #ffffff;
+          font-size: 0.9rem;
+          font-weight: 700;
+          padding: 1rem 1.8rem;
+          border-radius: 999px;
+          text-decoration: none;
+          white-space: nowrap;
+          box-shadow: 0 8px 24px rgba(255, 107, 53, 0.35);
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .footer-cta-btn:hover {
+          background: #F2571D;
+          transform: translateY(-3px);
+          box-shadow: 0 12px 30px rgba(255, 107, 53, 0.45);
+        }
+
+        .btn-arrow {
+          font-size: 1.1rem;
+        }
+
+        /* Footer Grid */
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1.5fr 1fr 1.3fr 1.2fr;
+          gap: 3.5rem;
+          margin-bottom: 4.5rem;
+        }
+
+        .brand-col {
           display: flex;
           flex-direction: column;
           gap: 1.2rem;
         }
-        .nav-label {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.65rem;
-          text-transform: uppercase;
-          letter-spacing: 0.3em;
-          color: rgba(255,255,255,0.2);
-          margin-bottom: 0.5rem;
-        }
-        .nav-link {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.9rem;
-          font-weight: 700;
-          color: #ffffff !important;
-          text-decoration: none;
-          opacity: 0.5;
-          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-          letter-spacing: 0.1em;
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          padding: 0.2rem 0;
-        }
-        .nav-link:hover {
-          opacity: 1;
-          color: #ffffff !important;
-          padding-left: 0.5rem;
-        }
-        .nav-icon {
-          width: 16px;
-          height: 16px;
-          opacity: 0.5;
-          transition: transform 0.4s ease;
-        }
-        .nav-link:hover .nav-icon {
-          opacity: 1;
-          transform: scale(1.1);
-        }
-        .nav-link:hover {
-          opacity: 1;
-          transform: translateX(5px);
+
+        .brand-bio {
+          font-size: 0.88rem;
+          color: #94A3B8;
+          line-height: 1.6;
+          max-width: 320px;
         }
 
-        .footer-bottom {
+        .col-title {
+          font-family: var(--font-display, sans-serif);
+          font-size: 0.75rem;
+          font-weight: 800;
+          letter-spacing: 0.15em;
+          color: #00A896;
+          margin-bottom: 1.25rem;
+        }
+
+        .footer-links {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 0.85rem;
+        }
+
+        .footer-link {
+          color: #CBD5E1;
+          font-size: 0.88rem;
+          font-weight: 500;
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .footer-link:hover {
+          color: #00A896;
+          padding-left: 4px;
+        }
+
+        .service-item {
+          color: #94A3B8;
+          font-size: 0.82rem;
+          line-height: 1.4;
+        }
+
+        .social-link {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+        }
+
+        .icon-dot-turquoise {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #00A896;
+        }
+
+        /* Bottom Bar */
+        .footer-bottom-bar {
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          padding-top: 2rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding-top: 4rem;
-          border-top: 1px solid rgba(255,255,255,0.05);
+          font-size: 0.82rem;
+          color: #64748B;
         }
-        .footer-legal {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.7rem;
-          font-weight: 500;
-          letter-spacing: 0.1em;
-          display: flex;
-          align-items: center;
-          gap: 1.5rem;
-        }
-        .legal-item { opacity: 0.3; }
-        .separator { opacity: 0.1; }
 
-        .back-to-top {
+        .copyright strong {
+          color: #E2E8F0;
+        }
+
+        .back-top-btn {
           background: none;
-          border: none;
-          color: #fff;
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          color: #CBD5E1;
+          font-family: var(--font-main, sans-serif);
+          font-size: 0.72rem;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          padding: 0.5rem 1.1rem;
+          border-radius: 999px;
           cursor: pointer;
           display: flex;
           align-items: center;
-          gap: 1.5rem;
+          gap: 0.5rem;
           transition: all 0.3s ease;
         }
-        .btn-label {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.7rem;
-          font-weight: 800;
-          letter-spacing: 0.2em;
-          opacity: 0.5;
-        }
-        .btn-icon {
-          width: 40px;
-          height: 40px;
-          border: 1px solid rgba(255,255,255,0.15);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.4s ease;
-        }
-        .arrow {
-          font-size: 1rem;
-          transition: transform 0.3s ease;
+
+        .back-top-btn:hover {
+          background: #00A896;
+          border-color: #00A896;
+          color: #ffffff;
         }
 
-        .back-to-top:hover .btn-label { opacity: 1; }
-        .back-to-top:hover .btn-icon {
-          background: #fff;
-          border-color: #fff;
-        }
-        .back-to-top:hover .arrow {
-          color: #000;
-          transform: translateY(-3px);
+        @media (max-width: 1024px) {
+          .footer-hero-banner {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 2rem;
+          }
+          .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+          }
         }
 
-        @media (max-width: 900px) {
-          .footer-top { flex-direction: column; gap: 4rem; }
-          .footer-nav { gap: 3rem; flex-wrap: wrap; }
-          .footer-bottom { flex-direction: column-reverse; gap: 3rem; text-align: center; }
-          .footer-legal { flex-direction: column; gap: 1rem; }
-          .separator { display: none; }
-        }
-        @media (max-width: 480px) {
-          .footer-logo { font-size: 1.2rem; }
-          .footer-nav { gap: 2rem; }
+        @media (max-width: 640px) {
+          .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+          .footer-bottom-bar {
+            flex-direction: column;
+            gap: 1.25rem;
+            text-align: center;
+          }
         }
       `}</style>
     </footer>

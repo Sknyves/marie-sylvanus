@@ -7,21 +7,21 @@ import Link from 'next/link';
 import Navbar from '@/components/core/Navbar';
 import Footer from '@/components/core/Footer';
 import { projectsData } from '@/data/projects';
-
+import BrandWaves from '@/components/ui/BrandWaves';
 
 export default function ProjectDetailContent() {
   const params = useParams();
   const id = params.id as string;
   const project = projectsData[id] ?? {
     title: id?.replace(/-/g, ' ').toUpperCase() ?? 'PROJET',
-    category: 'Case Study',
+    category: 'Étude de Cas',
     year: new Date().getFullYear().toString(),
-    role: 'Developer',
-    description: 'Description détaillée du projet en cours de rédaction.',
-    longDesc: 'Ce projet illustre mon expertise en développement full stack et en conception d\'interfaces utilisateur performantes.',
-    challenge: 'Répondre aux besoins spécifiques du client tout en respectant les contraintes techniques et budgétaires.',
-    solution: 'Architecture moderne, code propre et livraison dans les délais.',
-    stack: ['React', 'TypeScript', 'Node.js'],
+    role: 'Consultante Automatisation & IA',
+    description: 'Description détaillée de la solution développée.',
+    longDesc: 'Ce projet illustre mon expertise en automatisation de processus, conception logicielle et intégration d\'intelligence artificielle.',
+    challenge: 'Identifier les goulots d\'étranglement opérationnels et simplifier le quotidien des utilisateurs.',
+    solution: 'Architecture moderne, workflows automatisés et gains de productivité immédiats.',
+    stack: ['n8n', 'OpenAI', 'Next.js', 'PostgreSQL'],
     externalLink: '#',
     image: '',
   };
@@ -31,12 +31,12 @@ export default function ProjectDetailContent() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.pd-reveal', {
-        y: 50,
+        y: 40,
         opacity: 0,
-        stagger: 0.12,
-        duration: 1,
+        stagger: 0.1,
+        duration: 0.8,
         ease: 'power3.out',
-        delay: 0.2,
+        delay: 0.1,
       });
     }, containerRef);
     return () => ctx.revert();
@@ -62,7 +62,7 @@ export default function ProjectDetailContent() {
               <p className="pd-reveal pd-desc">{project.description}</p>
             </div>
             <div className="pd-hero-right pd-reveal">
-              <div className="pd-meta-block">
+              <div className="pd-meta-block brand-card">
                 <div className="pd-meta-item">
                   <span className="meta-label">ANNÉE</span>
                   <span className="meta-value">{project.year}</span>
@@ -72,7 +72,7 @@ export default function ProjectDetailContent() {
                   <span className="meta-value">{project.role}</span>
                 </div>
                 <div className="pd-meta-item">
-                  <span className="meta-label">LIEN LIVE</span>
+                  <span className="meta-label">LIEN DU SITE</span>
                   <a href={project.externalLink} target="_blank" rel="noopener noreferrer" className="meta-link">
                     VISITER ↗
                   </a>
@@ -87,7 +87,7 @@ export default function ProjectDetailContent() {
       {project.image && (
         <section className="pd-image-section pd-reveal">
           <div className="pd-container">
-            <div className="pd-mockup">
+            <div className="pd-mockup brand-card">
               <div className="mockup-browser-bar">
                 <span className="dot r" /><span className="dot y" /><span className="dot g" />
                 <span className="mockup-url">{project.externalLink.replace('https://', '')}</span>
@@ -103,23 +103,23 @@ export default function ProjectDetailContent() {
         <div className="pd-container">
           <div className="pd-content-grid">
 
-            <div className="pd-content-block pd-reveal">
-              <h2 className="content-label">01 — CONTEXTE</h2>
+            <div className="pd-content-block brand-card pd-reveal">
+              <h2 className="content-label">01 — CONTEXTE & OBJECTIF</h2>
               <p className="content-body">{project.longDesc}</p>
             </div>
 
-            <div className="pd-content-block pd-reveal">
-              <h2 className="content-label">02 — DÉFI</h2>
+            <div className="pd-content-block brand-card pd-reveal">
+              <h2 className="content-label">02 — DÉFI OPÉRATIONNEL</h2>
               <p className="content-body">{project.challenge}</p>
             </div>
 
-            <div className="pd-content-block pd-reveal">
-              <h2 className="content-label">03 — SOLUTION</h2>
+            <div className="pd-content-block brand-card pd-reveal">
+              <h2 className="content-label">03 — SOLUTION & AUTOMATISATION</h2>
               <p className="content-body">{project.solution}</p>
             </div>
 
-            <div className="pd-content-block pd-reveal">
-              <h2 className="content-label">04 — STACK TECHNIQUE</h2>
+            <div className="pd-content-block brand-card pd-reveal">
+              <h2 className="content-label">04 — ÉCOSYSTÈME TECHNIQUE</h2>
               <div className="stack-grid">
                 {project.stack?.map((tech) => (
                   <span key={tech} className="stack-tag">{tech}</span>
@@ -131,267 +131,283 @@ export default function ProjectDetailContent() {
           {/* CTA */}
           <div className="pd-cta pd-reveal">
             <a href={project.externalLink} target="_blank" rel="noopener noreferrer" className="cta-btn">
-              <span>VOIR LE PROJET LIVE</span>
+              <span>VISITER LE PROJET EN DIRECT</span>
               <span className="cta-arrow">↗</span>
             </a>
-            <Link href="/work" className="back-btn">
-              ← Retour au portfolio
+            <Link href="/#diagnostic" className="secondary-cta-btn">
+              <span>Demander un diagnostic similaire (15 min)</span>
             </Link>
           </div>
         </div>
       </section>
 
+      <BrandWaves position="bottom-right" opacity={0.4} />
+
       <Footer />
 
       <style jsx>{`
         .project-detail {
-          background: #000;
-          color: #fff;
+          width: 100%;
           min-height: 100vh;
+          background: #FAF8F5;
+          color: #091E3A;
+          padding-top: 100px;
         }
 
         .pd-container {
-          max-width: 1300px;
+          max-width: 1200px;
           margin: 0 auto;
-          padding: 0 5vw;
+          padding: 0 2rem;
         }
 
-        /* HERO */
         .pd-hero {
-          padding: 22vh 0 8vh;
-          border-bottom: 1px solid #0f0f0f;
+          padding: 3rem 0 4rem;
         }
+
         .pd-breadcrumb {
           display: flex;
           align-items: center;
           gap: 0.75rem;
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.75rem;
-          letter-spacing: 0.1em;
-          opacity: 0.4;
-          margin-bottom: 4rem;
+          margin-bottom: 2rem;
+          font-size: 0.85rem;
+          font-weight: 700;
         }
+
         .breadcrumb-link {
-          color: inherit;
+          color: #FF6B35;
           text-decoration: none;
-          transition: opacity 0.3s;
         }
-        .breadcrumb-link:hover { opacity: 1; }
-        .breadcrumb-sep { opacity: 0.3; }
-        .breadcrumb-current { opacity: 0.6; }
+
+        .breadcrumb-sep {
+          color: #8798AD;
+        }
+
+        .breadcrumb-current {
+          color: #54667D;
+        }
 
         .pd-hero-grid {
           display: grid;
-          grid-template-columns: 1.4fr 1fr;
-          gap: 6vw;
-          align-items: start;
+          grid-template-columns: 1.3fr 0.7fr;
+          gap: 3rem;
+          align-items: flex-end;
         }
 
         .pd-cat {
-          font-family: 'Outfit', sans-serif;
           font-size: 0.75rem;
-          letter-spacing: 0.3em;
+          font-weight: 800;
+          letter-spacing: 0.15em;
+          color: #00A896;
           text-transform: uppercase;
-          color: #555;
-          display: block;
-          margin-bottom: 1.5rem;
+          display: inline-block;
+          margin-bottom: 0.75rem;
         }
+
         .pd-title {
-          font-family: 'Perfect Dark', sans-serif;
-          font-size: clamp(2.5rem, 6vw, 5.5rem);
-          line-height: 0.95;
-          letter-spacing: -0.02em;
-          margin-bottom: 2rem;
+          font-family: var(--font-display, sans-serif);
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 800;
+          color: #091E3A;
+          line-height: 1.1;
+          margin-bottom: 1rem;
         }
+
         .pd-desc {
-          font-family: 'Outfit', sans-serif;
-          font-size: clamp(1rem, 1.4vw, 1.3rem);
+          font-size: 1.1rem;
+          color: #54667D;
           line-height: 1.6;
-          opacity: 0.6;
-          max-width: 560px;
         }
 
         .pd-meta-block {
+          background: #FFFFFF;
+          padding: 2rem;
+          border-radius: 20px;
           display: flex;
           flex-direction: column;
-          gap: 2.5rem;
-          padding: 2.5rem;
-          border: 1px solid #111;
-          background: #050505;
+          gap: 1.25rem;
         }
+
         .pd-meta-item {
           display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #EAE4DA;
+          padding-bottom: 0.75rem;
         }
-        .meta-label {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.65rem;
-          letter-spacing: 0.25em;
-          color: #444;
-          text-transform: uppercase;
-        }
-        .meta-value {
-          font-family: 'Outfit', sans-serif;
-          font-size: 1rem;
-          font-weight: 600;
-        }
-        .meta-link {
-          font-family: 'Perfect Dark', sans-serif;
-          font-size: 0.75rem;
-          color: #fff;
-          text-decoration: none;
-          letter-spacing: 0.1em;
-          border-bottom: 1px solid #222;
-          padding-bottom: 0.5rem;
-          transition: border-color 0.3s ease;
-          display: inline-block;
-        }
-        .meta-link:hover { border-color: #fff; }
 
-        /* MOCKUP */
+        .pd-meta-item:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .meta-label {
+          font-size: 0.72rem;
+          font-weight: 800;
+          color: #8798AD;
+          letter-spacing: 0.1em;
+        }
+
+        .meta-value {
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: #091E3A;
+        }
+
+        .meta-link {
+          color: #FF6B35;
+          font-weight: 800;
+          font-size: 0.85rem;
+          text-decoration: none;
+        }
+
+        /* Mockup */
         .pd-image-section {
-          padding: 6vh 0 0;
+          padding: 2rem 0 4rem;
         }
+
         .pd-mockup {
-          border: 1px solid #111;
+          background: #FFFFFF;
+          border-radius: 24px;
           overflow: hidden;
-          background: #070707;
         }
+
         .mockup-browser-bar {
+          background: #F3EFEA;
+          padding: 0.75rem 1.25rem;
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          padding: 1rem 1.5rem;
-          background: #0a0a0a;
-          border-bottom: 1px solid #111;
+          border-bottom: 1px solid #EAE4DA;
         }
+
         .dot {
           width: 10px;
           height: 10px;
           border-radius: 50%;
         }
-        .dot.r { background: #ff5f57; }
-        .dot.y { background: #ffbd2e; }
-        .dot.g { background: #28c940; }
+
+        .dot.r { background: #FF5F56; }
+        .dot.y { background: #FFBD2E; }
+        .dot.g { background: #27C93F; }
+
         .mockup-url {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.7rem;
-          color: #333;
           margin-left: 1rem;
-          letter-spacing: 0.05em;
-        }
-        .mockup-img {
-          width: 100%;
-          height: auto;
-          display: block;
-          max-height: 70vh;
-          object-fit: cover;
-          object-position: top;
+          font-size: 0.75rem;
+          color: #8798AD;
+          font-family: monospace;
         }
 
-        /* CONTENT */
-        .pd-content {
-          padding: 10vh 0 15vh;
+        .mockup-img {
+          width: 100%;
+          max-height: 650px;
+          object-fit: cover;
+          object-position: top;
+          display: block;
         }
+
+        /* Content */
+        .pd-content {
+          padding: 3rem 0 6rem;
+        }
+
         .pd-content-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 6rem 8vw;
-          margin-bottom: 10vh;
+          gap: 2rem;
+          margin-bottom: 4rem;
         }
+
+        .pd-content-block {
+          background: #FFFFFF;
+          padding: 2.5rem;
+          border-radius: 20px;
+        }
+
         .content-label {
-          font-family: 'Perfect Dark', sans-serif;
-          font-size: 0.7rem;
-          letter-spacing: 0.2em;
-          color: #333;
-          margin-bottom: 2rem;
-          text-transform: uppercase;
+          font-family: var(--font-display, sans-serif);
+          font-size: 0.8rem;
+          font-weight: 800;
+          letter-spacing: 0.15em;
+          color: #00A896;
+          margin-bottom: 1rem;
         }
+
         .content-body {
-          font-family: 'Outfit', sans-serif;
-          font-size: 1.1rem;
-          line-height: 1.75;
-          opacity: 0.65;
+          font-size: 1rem;
+          color: #54667D;
+          line-height: 1.7;
         }
 
         .stack-grid {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.75rem;
+          gap: 0.6rem;
+          margin-top: 1rem;
         }
+
         .stack-tag {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.75rem;
-          font-weight: 600;
-          letter-spacing: 0.1em;
-          padding: 0.5rem 1.25rem;
-          border: 1px solid #1f1f1f;
-          color: #aaa;
-          text-transform: uppercase;
-          transition: all 0.3s ease;
-        }
-        .stack-tag:hover {
-          border-color: #fff;
-          color: #fff;
+          font-size: 0.82rem;
+          font-weight: 700;
+          color: #091E3A;
+          background: #F3EFEA;
+          padding: 0.4rem 0.9rem;
+          border-radius: 8px;
         }
 
         /* CTA */
         .pd-cta {
           display: flex;
           align-items: center;
-          gap: 4rem;
-          padding-top: 6vh;
-          border-top: 1px solid #0f0f0f;
+          justify-content: center;
+          gap: 1.5rem;
+          flex-wrap: wrap;
         }
+
         .cta-btn {
-          font-family: 'Perfect Dark', sans-serif;
-          font-size: 0.75rem;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: #000;
-          background: #fff;
-          text-decoration: none;
-          padding: 1.2rem 3rem;
           display: inline-flex;
           align-items: center;
-          gap: 1rem;
-          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .cta-btn:hover {
-          background: #111;
-          color: #fff;
-        }
-        .cta-arrow {
-          font-size: 1.1rem;
-          transition: transform 0.4s ease;
-        }
-        .cta-btn:hover .cta-arrow {
-          transform: translate(4px, -4px);
-        }
-        .back-btn {
-          font-family: 'Outfit', sans-serif;
-          font-size: 0.8rem;
-          color: #555;
+          gap: 0.75rem;
+          background: #FF6B35;
+          color: #FFFFFF;
+          font-size: 0.95rem;
+          font-weight: 700;
+          padding: 1.1rem 2.2rem;
+          border-radius: 999px;
           text-decoration: none;
-          letter-spacing: 0.05em;
-          transition: color 0.3s ease;
+          box-shadow: 0 8px 24px rgba(255, 107, 53, 0.35);
+          transition: all 0.3s ease;
         }
-        .back-btn:hover { color: #fff; }
+
+        .cta-btn:hover {
+          background: #F2571D;
+          transform: translateY(-2px);
+        }
+
+        .secondary-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          background: #091E3A;
+          color: #FFFFFF;
+          font-size: 0.95rem;
+          font-weight: 700;
+          padding: 1.1rem 2.2rem;
+          border-radius: 999px;
+          text-decoration: none;
+          transition: all 0.3s ease;
+        }
+
+        .secondary-cta-btn:hover {
+          background: #00A896;
+          transform: translateY(-2px);
+        }
 
         @media (max-width: 900px) {
-          .pd-hero-grid { grid-template-columns: 1fr; gap: 4rem; }
-          .pd-content-grid { grid-template-columns: 1fr; gap: 4rem; }
-          .pd-cta { flex-direction: column; align-items: flex-start; gap: 2rem; }
-          .pd-title { font-size: 2.8rem; }
-        }
-        @media (max-width: 600px) {
-          .pd-hero { padding: 18vh 0 6vh; }
-          .pd-title { font-size: 2rem; }
-          .pd-meta-block { padding: 1.5rem; gap: 1.5rem; }
-          .pd-meta-item { border-bottom: 1px solid #111; padding-bottom: 1rem; }
-          .pd-meta-item:last-child { border: none; }
-          .pd-breadcrumb { margin-bottom: 2rem; }
+          .pd-hero-grid {
+            grid-template-columns: 1fr;
+          }
+          .pd-content-grid {
+            grid-template-columns: 1fr;
+          }
         }
       `}</style>
     </main>
