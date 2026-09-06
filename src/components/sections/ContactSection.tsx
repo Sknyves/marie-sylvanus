@@ -123,7 +123,7 @@ export default function ContactSection() {
             </div>
             <span className="link-arrow">↗</span>
           </a>
-          <a href="https://www.linkedin.com/in/marie-sylvanus-734b432a9/" target="_blank" rel="noopener noreferrer" className="contact-link contact-reveal">
+          <a href="https://www.linkedin.com/in/marie-sylvanus-kinkpon/" target="_blank" rel="noopener noreferrer" className="contact-link contact-reveal">
             <span className="link-bg"></span>
             <div className="link-content">
               <svg className="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -133,7 +133,7 @@ export default function ContactSection() {
             </div>
             <span className="link-arrow">↗</span>
           </a>
-          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="contact-link contact-reveal">
+          {/*<a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="contact-link contact-reveal">
             <span className="link-bg"></span>
             <div className="link-content">
               <svg className="link-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -142,7 +142,7 @@ export default function ContactSection() {
               <span className="link-text">Facebook</span>
             </div>
             <span className="link-arrow">↗</span>
-          </a>
+          </a>*/}
           <a href="https://wa.me/+22943655721" target="_blank" rel="noopener noreferrer" className="contact-link contact-reveal">
             <span className="link-bg"></span>
             <div className="link-content">
